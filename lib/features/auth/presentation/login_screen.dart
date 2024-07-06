@@ -152,21 +152,26 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         const SizedBox(height: 30),
-                        Container(
-                          height: 50,
-                          decoration: const BoxDecoration(
-                            color: mainColor,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(5.0),
+                        TextButton(
+                          onPressed: () {
+                            Get.offAndToNamed(Routes.home);
+                          },
+                          child: Container(
+                            height: 50,
+                            decoration: const BoxDecoration(
+                              color: mainColor,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5.0),
+                              ),
                             ),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  color: primaryColorLT,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
+                            child: const Center(
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: primaryColorLT,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         ),

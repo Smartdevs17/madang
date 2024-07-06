@@ -35,8 +35,8 @@ class AuthScreen extends StatelessWidget {
             const SizedBox(
               height: 100,
             ),
-            InkWell(
-              onTap: () {
+            TextButton(
+              onPressed: () {
                 Get.toNamed(Routes.register);
               },
               child: Container(
@@ -61,8 +61,8 @@ class AuthScreen extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            InkWell(
-              onTap: () {
+            TextButton(
+              onPressed: () {
                 Get.toNamed(Routes.login);
               },
               child: Container(
