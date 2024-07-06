@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:madang/routes/bottom_nav_bar.dart';
 import 'package:madang/routes/navigation.dart';
 import 'package:madang/routes/routes.dart';
 import 'package:madang/utils/theme/theme.dart';

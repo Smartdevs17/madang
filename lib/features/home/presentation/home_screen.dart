@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:madang/features/home/presentation/recommendation_section.dart';
+import 'package:madang/features/home/widget/icon_row.dart';
+import 'package:madang/features/home/widget/image_slider.dart';
 import 'package:madang/routes/bottom_nav_bar.dart';
+import 'package:madang/utils/theme/theme.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -32,13 +36,53 @@ class HomeScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Home Screen'),
-        ),
-        body: const Center(
-          child: Text(
-            'Home Screen Content',
-            style: TextStyle(fontSize: 24.0),
+        backgroundColor: primaryColorLT,
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Hi, Promise",
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "Get your favorite food here!",
+                            style: TextStyle(
+                                fontSize: 21, fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                      SvgPicture.asset("assets/svgs/cart.svg")
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  const ImageSlider(),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  IconRow(),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  RecommendationSection(),
+                  const SizedBox(
+                    height: 15,
+                  )
+                ],
+              ),
+            ),
           ),
         ),
         bottomNavigationBar: const BottomNavBar(activeIndex: 0),

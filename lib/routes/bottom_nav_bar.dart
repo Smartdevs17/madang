@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:madang/routes/routes.dart';
 import 'package:madang/utils/theme/theme.dart';
 
@@ -14,6 +13,13 @@ class BottomNavBar extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: primaryColorLT,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12, // Shadow color
+            blurRadius: 10.0, // Blur radius
+            offset: Offset(0, -5), // Shadow position
+          ),
+        ],
       ),
       height: 100.0,
       child: Row(
@@ -47,59 +53,58 @@ class BottomNavBar extends StatelessWidget {
             ),
           ),
           Expanded(
-              flex: 10,
-              child: BottomNavBarButton(
-                icon: "assets/svgs/refresh-circle.svg",
-                label: "Recent",
-                isActive: activeIndex == 2,
-                onTap: () {
-                  if (activeIndex == 2) return;
-                  if (activeIndex == 0) {
-                    Get.toNamed(Routes.recent);
-                  } else {
-                    Get.offAndToNamed(Routes.recent);
-                  }
-                },
-              )),
+            flex: 10,
+            child: BottomNavBarButton(
+              icon: "assets/svgs/refresh-circle.svg",
+              label: "Recent",
+              isActive: activeIndex == 2,
+              onTap: () {
+                if (activeIndex == 2) return;
+                if (activeIndex == 0) {
+                  Get.toNamed(Routes.recent);
+                } else {
+                  Get.offAndToNamed(Routes.recent);
+                }
+              },
+            ),
+          ),
           Expanded(
-              flex: 10,
-              child: BottomNavBarButton(
-                icon: "assets/svgs/person.svg",
-                label: "Profile",
-                isActive: activeIndex == 3,
-                onTap: () {
-                  if (activeIndex == 3) return;
-                  if (activeIndex == 0) {
-                    Get.toNamed(Routes.profile);
-                  } else {
-                    Get.offAndToNamed(Routes.profile);
-                  }
-                },
-              )),
+            flex: 10,
+            child: BottomNavBarButton(
+              icon: "assets/svgs/person.svg",
+              label: "Profile",
+              isActive: activeIndex == 3,
+              onTap: () {
+                if (activeIndex == 3) return;
+                if (activeIndex == 0) {
+                  Get.toNamed(Routes.profile);
+                } else {
+                  Get.offAndToNamed(Routes.profile);
+                }
+              },
+            ),
+          ),
         ],
       ),
     );
   }
-
-  void logScreenView(String screenName) {}
-
-  dynamic _onPageChange(int currentIndex) {}
 }
 
-// ignore: must_be_immutable
 class BottomNavBarButton extends StatelessWidget {
   final bool isActive;
   final String icon;
-  void Function()? onTap;
+  final void Function()? onTap;
   final String label;
   final Widget? widget;
-  BottomNavBarButton(
-      {super.key,
-      required this.isActive,
-      required this.icon,
-      this.label = '',
-      this.widget,
-      this.onTap});
+
+  BottomNavBarButton({
+    super.key,
+    required this.isActive,
+    required this.icon,
+    this.label = '',
+    this.widget,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +112,15 @@ class BottomNavBarButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: double.infinity,
-        color: primaryColorLT,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            top: BorderSide(
+              color: isActive ? mainColor : neutralGrey,
+              width: 2.0,
+            ),
+          ),
+        ),
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,11 +143,12 @@ class BottomNavBarButton extends StatelessWidget {
                     label,
                     maxLines: 1,
                     style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.w700,
-                        color: isActive ? mainColor : neutralGrey),
+                      fontSize: 12.0,
+                      fontWeight: FontWeight.w700,
+                      color: isActive ? mainColor : neutralGrey,
+                    ),
                   ),
-                )
+                ),
             ],
           ),
         ),

@@ -180,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
+                              const Text(
                                 "Don't have an account? ",
                                 style: TextStyle(
                                   color: Colors
@@ -192,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 onTap: () {
                                   Get.toNamed(Routes.otp);
                                 },
-                                child: Text(
+                                child: const Text(
                                   "Sign Up",
                                   style: TextStyle(
                                       color:
