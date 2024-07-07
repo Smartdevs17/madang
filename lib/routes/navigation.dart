@@ -4,7 +4,15 @@ import 'package:madang/features/auth/presentation/login_screen.dart';
 import 'package:madang/features/auth/presentation/otp_screen.dart';
 import 'package:madang/features/auth/presentation/register_screen.dart';
 import 'package:madang/features/home/presentation/home_screen.dart';
+import 'package:madang/features/profile/presentation/cart_screen.dart';
+import 'package:madang/features/profile/presentation/help_report_screen.dart';
+import 'package:madang/features/profile/presentation/language_screen.dart';
+import 'package:madang/features/profile/presentation/news_screen.dart';
+import 'package:madang/features/profile/presentation/notification_screen.dart';
+import 'package:madang/features/profile/presentation/payment_screen.dart';
+import 'package:madang/features/profile/presentation/privacy_policy_screen.dart';
 import 'package:madang/features/profile/presentation/profile_screen.dart';
+import 'package:madang/features/profile/presentation/rating_screen.dart';
 import 'package:madang/features/recent/presentation/recent_screen.dart';
 import 'package:madang/features/search/presentation/search_screen.dart';
 
@@ -18,6 +26,14 @@ var routes = [
   GetPage(name: Routes.otp, page: () => const OTPScreen()),
   GetPage(name: Routes.home, page: () => const HomeScreen()),
   GetPage(name: Routes.search, page: () => const SearchScreen()),
-  GetPage(name: Routes.recent, page: () => const RecentScreen()),
-  GetPage(name: Routes.profile, page: () => const ProfileScreen()),
+  GetPage(name: Routes.recent, page: () => RecentScreen()),
+  GetPage(name: Routes.profile, page: () => ProfileScreen()),
+  GetPage(name: Routes.paymentMethod, page: () => PaymentMethodScreen()),
+  GetPage(name: Routes.myCart, page: () => MyCartScreen()),
+  GetPage(name: Routes.helpAndReport, page: () => HelpAndReportScreen()),
+  GetPage(name: Routes.language, page: () => LanguageScreen()),
+  GetPage(name: Routes.notification, page: () => NotificationScreen()),
+  GetPage(name: Routes.privacyPolicy, page: () => PrivacyPolicyScreen()),
+  GetPage(name: Routes.newsAndServices, page: () => NewsAndServicesScreen()),
+  GetPage(name: Routes.giveRating, page: () => GiveRatingScreen()),
 ];

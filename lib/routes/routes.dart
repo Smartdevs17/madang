@@ -19,4 +19,12 @@ class Routes {
   static const String tables = "/tableScreen";
   static const String cart = "/cartScreen";
   static const String payment = "/paymentScreen";
+  static const String paymentMethod = '/payment-method';
+  static const String myCart = '/my-cart';
+  static const String helpAndReport = '/help-and-report';
+  static const String language = '/language';
+  static const String notification = '/notification';
+  static const String privacyPolicy = '/privacy-policy';
+  static const String newsAndServices = '/news-and-services';
+  static const String giveRating = '/give-rating';
 }
