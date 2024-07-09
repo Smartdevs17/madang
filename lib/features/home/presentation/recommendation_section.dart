@@ -31,7 +31,7 @@ class RecommendationSection extends StatelessWidget {
       rating: 4.7,
       title: 'Family Package',
       details: '1 large table 6 chair',
-      price: 'Rp320.000',
+      price: '#3200',
     ),
   ];
   @override

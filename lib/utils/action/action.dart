@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:madang/utils/theme/theme.dart';
 
 void showSnackbar({String? message, String? title, bool error = false}) {
   Get.showSnackbar(
     GetSnackBar(
-      snackPosition: SnackPosition.TOP,
       dismissDirection: DismissDirection.horizontal,
-      backgroundColor: error ? Colors.red : Colors.green,
-      message: message,
-      title: title,
-      margin: const EdgeInsets.symmetric(horizontal: 20),
+      backgroundColor: error ? Colors.red : const Color(0xff49516f),
+      messageText: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "$message",
+            style: const TextStyle(fontSize: 18, color: primaryColorLT),
+          ),
+          const Chip(
+            label: Text(
+              'Cart',
+              style: TextStyle(color: mainColor),
+            ),
+            backgroundColor: primaryColorLT,
+          ),
+        ],
+      ),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
       borderRadius: 10,
       duration: const Duration(seconds: 3),
-      // padding: EdgeInsets.symmetric(vertical: 5),
     ),
   );
 }

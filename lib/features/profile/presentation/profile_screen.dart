@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:madang/features/profile/presentation/payment_screen.dart';
 import 'package:madang/features/profile/widget/profile_option.dart';
 import 'package:madang/features/profile/widget/section_header.dart';
 import 'package:madang/routes/bottom_nav_bar.dart';
@@ -8,6 +7,8 @@ import 'package:madang/routes/routes.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,14 +40,14 @@ class ProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Promise Isaiah",
+                        "Michael Owen",
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "isaiahpromise@gmail.com",
+                        "michaelowen@gmail.com",
                         style: TextStyle(
                           fontSize: 16,
                           color: primaryColorDK,

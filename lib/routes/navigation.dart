@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madang/features/auth/presentation/auth_screen.dart';
 import 'package:madang/features/auth/presentation/login_screen.dart';
 import 'package:madang/features/auth/presentation/otp_screen.dart';
 import 'package:madang/features/auth/presentation/register_screen.dart';
+import 'package:madang/features/food/presentation/food_screen.dart';
 import 'package:madang/features/home/presentation/home_screen.dart';
 import 'package:madang/features/profile/presentation/cart_screen.dart';
 import 'package:madang/features/profile/presentation/help_report_screen.dart';
@@ -15,6 +17,7 @@ import 'package:madang/features/profile/presentation/profile_screen.dart';
 import 'package:madang/features/profile/presentation/rating_screen.dart';
 import 'package:madang/features/recent/presentation/recent_screen.dart';
 import 'package:madang/features/search/presentation/search_screen.dart';
+import 'package:madang/features/table/presentation/table_screen.dart';
 
 import 'package:madang/routes/routes.dart';
 
@@ -36,4 +39,6 @@ var routes = [
   GetPage(name: Routes.privacyPolicy, page: () => PrivacyPolicyScreen()),
   GetPage(name: Routes.newsAndServices, page: () => NewsAndServicesScreen()),
   GetPage(name: Routes.giveRating, page: () => GiveRatingScreen()),
+  GetPage(name: Routes.food, page: () => FoodScreen()),
+  GetPage(name: Routes.table, page: () => TableScreen()),
 ];

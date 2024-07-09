@@ -22,16 +22,17 @@ class RecommendationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 150,
+      margin: const EdgeInsets.only(
+          bottom: 16), // Adjust vertical spacing between items
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey
-                .withOpacity(0.1), // Adjust the opacity and color as needed
+            color: Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 2,
-            offset: Offset(0, 1), // changes the position of the shadow
+            offset: const Offset(0, 1),
           ),
         ],
       ),
@@ -41,19 +42,21 @@ class RecommendationItem extends StatelessWidget {
           Stack(
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(10)),
                 child: Image.asset(
                   image,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  height: 200,
+                  height: 170,
                 ),
               ),
               Positioned(
                 top: 8,
                 right: 8,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: Colors.black.withOpacity(0.5),
                     borderRadius: BorderRadius.circular(10),
@@ -65,7 +68,7 @@ class RecommendationItem extends StatelessWidget {
                         height: 14,
                         color: Colors.yellow,
                       ),
-                      SizedBox(width: 2),
+                      const SizedBox(width: 2),
                       Text(
                         rating.toString(),
                         style: TextStyle(color: Colors.white, fontSize: 12),

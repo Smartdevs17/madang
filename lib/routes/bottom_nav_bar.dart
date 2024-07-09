@@ -11,13 +11,17 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         color: primaryColorLT,
         boxShadow: [
           BoxShadow(
-            color: Colors.black12, // Shadow color
+            color: Colors.black12.withOpacity(.01), // Shadow color
             blurRadius: 10.0, // Blur radius
             offset: Offset(0, -5), // Shadow position
+            // color: Colors.grey.withOpacity(0.1),
+            // spreadRadius: 1,
+            // blurRadius: 2,
+            // offset: Offset(0, 1),
           ),
         ],
       ),

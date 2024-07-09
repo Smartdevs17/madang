@@ -15,8 +15,8 @@ class Routes {
   static const String searchDetail = "/searchDetailScreen";
   static const String profile = "/profileScreen";
   static const String recent = "/recentScreen";
-  static const String foods = "/foodScreen";
-  static const String tables = "/tableScreen";
+  static const String food = "/foodScreen";
+  static const String table = "/tableScreen";
   static const String cart = "/cartScreen";
   static const String payment = "/paymentScreen";
   static const String paymentMethod = '/payment-method';

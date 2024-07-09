@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:madang/features/home/presentation/recommendation_section.dart';
 import 'package:madang/features/search/presentation/recently_searched.dart';
 import 'package:madang/features/search/widget/search_widget.dart';
 import 'package:madang/routes/bottom_nav_bar.dart';
