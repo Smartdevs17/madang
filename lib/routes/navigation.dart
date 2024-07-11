@@ -1,17 +1,18 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madang/features/auth/presentation/auth_screen.dart';
 import 'package:madang/features/auth/presentation/login_screen.dart';
 import 'package:madang/features/auth/presentation/otp_screen.dart';
 import 'package:madang/features/auth/presentation/register_screen.dart';
+import 'package:madang/features/cart/presentation/cart_screen.dart';
 import 'package:madang/features/food/presentation/food_screen.dart';
 import 'package:madang/features/home/presentation/home_screen.dart';
+import 'package:madang/features/payment/presentation/success_order_screen.dart';
 import 'package:madang/features/profile/presentation/cart_screen.dart';
 import 'package:madang/features/profile/presentation/help_report_screen.dart';
 import 'package:madang/features/profile/presentation/language_screen.dart';
 import 'package:madang/features/profile/presentation/news_screen.dart';
 import 'package:madang/features/profile/presentation/notification_screen.dart';
-import 'package:madang/features/profile/presentation/payment_screen.dart';
+import 'package:madang/features/payment/presentation/payment_screen.dart';
 import 'package:madang/features/profile/presentation/privacy_policy_screen.dart';
 import 'package:madang/features/profile/presentation/profile_screen.dart';
 import 'package:madang/features/profile/presentation/rating_screen.dart';
@@ -30,7 +31,7 @@ var routes = [
   GetPage(name: Routes.home, page: () => const HomeScreen()),
   GetPage(name: Routes.search, page: () => const SearchScreen()),
   GetPage(name: Routes.recent, page: () => RecentScreen()),
-  GetPage(name: Routes.profile, page: () => ProfileScreen()),
+  GetPage(name: Routes.profile, page: () => const ProfileScreen()),
   GetPage(name: Routes.paymentMethod, page: () => PaymentMethodScreen()),
   GetPage(name: Routes.myCart, page: () => MyCartScreen()),
   GetPage(name: Routes.helpAndReport, page: () => HelpAndReportScreen()),
@@ -41,4 +42,6 @@ var routes = [
   GetPage(name: Routes.giveRating, page: () => GiveRatingScreen()),
   GetPage(name: Routes.food, page: () => FoodScreen()),
   GetPage(name: Routes.table, page: () => TableScreen()),
+  GetPage(name: Routes.cart, page: () => const CartScreen()),
+  GetPage(name: Routes.successOrder, page: () => const SuccessOrderScreen()),
 ];

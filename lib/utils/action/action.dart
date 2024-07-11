@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:madang/routes/routes.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 void showSnackbar({String? message, String? title, bool error = false}) {
@@ -14,12 +15,17 @@ void showSnackbar({String? message, String? title, bool error = false}) {
             "$message",
             style: const TextStyle(fontSize: 18, color: primaryColorLT),
           ),
-          const Chip(
-            label: Text(
-              'Cart',
-              style: TextStyle(color: mainColor),
+          InkWell(
+            onTap: () {
+              Get.toNamed(Routes.cart);
+            },
+            child: const Chip(
+              label: Text(
+                'Cart',
+                style: TextStyle(color: mainColor),
+              ),
+              backgroundColor: primaryColorLT,
             ),
-            backgroundColor: primaryColorLT,
           ),
         ],
       ),

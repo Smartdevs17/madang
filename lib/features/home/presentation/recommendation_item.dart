@@ -86,18 +86,31 @@ class RecommendationItem extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
-                SizedBox(height: 4),
+                SizedBox(
+                  height: 4,
+                ),
                 Text(
                   details,
-                  style: TextStyle(color: Colors.grey, fontSize: 12),
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 12,
+                  ),
                 ),
-                SizedBox(height: 4),
+                SizedBox(
+                  height: 4,
+                ),
                 Text(
                   price,
-                  style:
-                      TextStyle(color: mainColor, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: mainColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
                 ),
               ],
             ),

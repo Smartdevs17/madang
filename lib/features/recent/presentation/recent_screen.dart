@@ -37,7 +37,7 @@ class _RecentScreenState extends State<RecentScreen>
               const Text(
                 "Recent",
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: primaryColorDK,
                 ),

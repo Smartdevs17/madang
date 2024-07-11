@@ -27,4 +27,5 @@ class Routes {
   static const String privacyPolicy = '/privacy-policy';
   static const String newsAndServices = '/news-and-services';
   static const String giveRating = '/give-rating';
+  static const String successOrder = '/success-order';
 }

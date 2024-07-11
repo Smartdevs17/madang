@@ -40,14 +40,14 @@ class _TableScreenState extends State<TableScreen> {
     return Scaffold(
       backgroundColor: primaryColorLT,
       appBar: AppBar(
-        title: Text('Table', style: TextStyle(color: primaryColorDK)),
+        title: const Text('Table', style: TextStyle(color: primaryColorDK)),
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: primaryColorDK),
+        iconTheme: const IconThemeData(color: primaryColorDK),
         elevation: 1.0,
         centerTitle: false,
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.only(right: 16),
+            padding: EdgeInsets.only(right: 16),
             child: Icon(Icons.shopping_cart),
           )
         ],
@@ -202,7 +202,9 @@ class _TableScreenState extends State<TableScreen> {
                         const Text(
                           "Time",
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         const SizedBox(height: 10),
                         Wrap(
@@ -245,10 +247,38 @@ class _TableScreenState extends State<TableScreen> {
                                       ),
                                     ),
                                     if (isSelected)
-                                      const Padding(
-                                        padding: EdgeInsets.only(left: 8.0),
-                                        child: Icon(Icons.circle,
-                                            size: 10, color: Colors.white),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              selectedTime = "";
+                                              isSelected = false;
+                                            });
+                                          },
+                                          child: Container(
+                                            height: 12,
+                                            width: 12,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: primaryColorLT,
+                                            ),
+                                            child: const Center(
+                                              child: Padding(
+                                                padding: EdgeInsets.all(0.1),
+                                                child: Text(
+                                                  "x",
+                                                  style: TextStyle(
+                                                      color: mainColor,
+                                                      fontSize: 8,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                   ],
                                 ),
@@ -311,7 +341,7 @@ class _TableScreenState extends State<TableScreen> {
                                 ),
                                 const Text(
                                   "example: 10 minutes, 1 hour",
-                                  style: TextStyle(fontSize: 11),
+                                  style: TextStyle(fontSize: 10),
                                 ),
                               ],
                             ),
@@ -338,17 +368,16 @@ class _TableScreenState extends State<TableScreen> {
                               message: 'Successfully booking table',
                               error: false,
                             );
-                            // SnackBar(content: Text("Successfully place order"));
                             Navigator.pop(context);
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: mainColor,
-                            minimumSize: Size(double.infinity, 50),
+                            minimumSize: const Size(double.infinity, 50),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Book Table',
                             style:
-                                TextStyle(fontSize: 18, color: primaryColorLT),
+                                TextStyle(fontSize: 16, color: primaryColorLT),
                           ),
                         ),
                       ],

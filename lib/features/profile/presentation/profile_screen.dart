@@ -22,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
               const Text(
                 "Profile",
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: primaryColorDK,
                 ),
@@ -35,14 +35,16 @@ class ProfileScreen extends StatelessWidget {
                     backgroundImage:
                         AssetImage('assets/images/photo profile.png'),
                   ),
-                  const SizedBox(width: 20),
+                  const SizedBox(
+                    width: 20,
+                  ),
                   const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "Michael Owen",
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -67,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
                       const Text(
                         "Edit",
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           color: primaryColorDK,
                         ),
                       ),
@@ -79,7 +81,7 @@ class ProfileScreen extends StatelessWidget {
               Expanded(
                 child: ListView(
                   children: [
-                    SectionHeader(title: "Account"),
+                    const SectionHeader(title: "Account"),
                     ProfileOption(
                       icon: Icons.payment,
                       title: "Payment Method",
@@ -120,7 +122,7 @@ class ProfileScreen extends StatelessWidget {
                         Get.toNamed(Routes.notification);
                       },
                     ),
-                    SectionHeader(title: "More Info"),
+                    const SectionHeader(title: "More Info"),
                     ProfileOption(
                       icon: Icons.policy,
                       title: "Privacy Policy",

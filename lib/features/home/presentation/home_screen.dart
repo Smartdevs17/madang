@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:madang/features/home/presentation/recommendation_section.dart';
 import 'package:madang/features/home/widget/icon_row.dart';
 import 'package:madang/features/home/widget/image_slider.dart';
 import 'package:madang/routes/bottom_nav_bar.dart';
+import 'package:madang/routes/routes.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -53,16 +55,25 @@ class HomeScreen extends StatelessWidget {
                           Text(
                             "Hi, Michael",
                             style: TextStyle(
-                                fontSize: 28, fontWeight: FontWeight.bold),
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           Text(
                             "Get your favorite food here!",
                             style: TextStyle(
-                                fontSize: 21, fontWeight: FontWeight.w500),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ],
                       ),
-                      SvgPicture.asset("assets/svgs/cart.svg")
+                      GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.cart);
+                        },
+                        child: SvgPicture.asset("assets/svgs/cart.svg"),
+                      ),
                     ],
                   ),
                   const SizedBox(

@@ -18,7 +18,10 @@ class OrderListView extends StatelessWidget {
         final order = orders[index];
         return ListTile(
           leading: Image.asset(order['image']!),
-          title: Text(order['title']!),
+          title: Text(
+            order['title']!,
+            style: const TextStyle(fontSize: 20),
+          ),
           subtitle: Text('${order['date']} · ${order['details']}'),
           trailing: Text(
             order['status']!,

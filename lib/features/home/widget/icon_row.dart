@@ -69,7 +69,7 @@ class IconRow extends StatelessWidget {
                 item['title']!,
                 style: const TextStyle(
                   color: primaryColorDK,
-                  fontSize: 14,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),

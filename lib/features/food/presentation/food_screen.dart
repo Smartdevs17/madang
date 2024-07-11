@@ -56,14 +56,20 @@ class _FoodScreenState extends State<FoodScreen> {
     return Scaffold(
       backgroundColor: primaryColorLT,
       appBar: AppBar(
-        title: Text('Food', style: TextStyle(color: primaryColorDK)),
+        title: const Text(
+          'Food',
+          style: TextStyle(
+            color: primaryColorDK,
+            fontSize: 20,
+          ),
+        ),
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: primaryColorDK),
+        iconTheme: const IconThemeData(color: primaryColorDK),
         elevation: 1.0,
         centerTitle: false,
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.only(right: 16),
+            padding: EdgeInsets.only(right: 16),
             child: Icon(Icons.shopping_cart),
           )
         ],
@@ -75,7 +81,7 @@ class _FoodScreenState extends State<FoodScreen> {
             TextFormField(
               decoration: InputDecoration(
                 hintText: 'Search food',
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -158,7 +164,7 @@ class _FoodScreenState extends State<FoodScreen> {
                                     const SizedBox(width: 4),
                                     Text(
                                       food['rating'].toString(),
-                                      style: const TextStyle(fontSize: 21),
+                                      style: const TextStyle(fontSize: 14),
                                     ),
                                   ],
                                 ),
@@ -168,8 +174,9 @@ class _FoodScreenState extends State<FoodScreen> {
                                 Text(
                                   food['price'],
                                   style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ],
                             ),
@@ -191,120 +198,145 @@ class _FoodScreenState extends State<FoodScreen> {
       BuildContext context, Map<String, dynamic> food, int quantity) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled:
+          true, // Allows the modal to be full screen if necessary
       builder: (context) {
         return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
-                child: Image.asset(
-                  food['image'],
-                  height: 300,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+          builder: (BuildContext context, StateSetter setState) {
+            return DraggableScrollableSheet(
+              expand: false,
+              builder:
+                  (BuildContext context, ScrollController scrollController) {
+                return SingleChildScrollView(
+                  controller: scrollController,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(25.0),
+                        ),
+                        child: Image.asset(
+                          food['image'],
+                          height: 300,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+                        child: Column(
                           children: [
-                            Text(
-                              food['name'],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(
-                              height: 5.0,
-                            ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(Icons.star,
-                                    color: Colors.amber, size: 20),
-                                const SizedBox(width: 4),
-                                Text(food['rating'].toString()),
-                                const SizedBox(
-                                  height: 5.0,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      food['name'],
+                                      style: const TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.star,
+                                            color: Colors.amber, size: 20),
+                                        const SizedBox(width: 4),
+                                        Text(
+                                          food['rating'].toString(),
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                        const SizedBox(
+                                          height: 5.0,
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      food['price'],
+                                      style: const TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            // Decrease quantity logic
+                                            setState(() {
+                                              if (quantity > 1) {
+                                                quantity--;
+                                              }
+                                            });
+                                          },
+                                          icon: const Icon(Icons.remove_circle),
+                                        ),
+                                        Text('$quantity'), // Quantity text
+                                        IconButton(
+                                          color: mainColor,
+                                          onPressed: () {
+                                            // Increase quantity logic
+                                            setState(() {
+                                              quantity++;
+                                            });
+                                          },
+                                          icon: const Icon(Icons.add_circle),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 10,
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              onPressed: () {
+                                // Place order logic
+                                showSnackbar(
+                                  message: 'Successfully placed order',
+                                  error: false,
+                                );
+                                Navigator.pop(context);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: mainColor,
+                                minimumSize: const Size(double.infinity, 50),
+                              ),
+                              child: const Text(
+                                'Place Order',
+                                style: TextStyle(
+                                    fontSize: 18, color: primaryColorLT),
+                              ),
                             ),
-                            Text(food['price'],
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 12),
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    // Decrease quantity logic
-                                    setState(() {
-                                      if (quantity > 1) {
-                                        quantity--;
-                                      }
-                                    });
-                                  },
-                                  icon: const Icon(Icons.remove_circle),
-                                ),
-                                Text('$quantity'), // Quantity text
-                                IconButton(
-                                  color: mainColor,
-                                  onPressed: () {
-                                    // Increase quantity logic
-                                    setState(() {
-                                      quantity++;
-                                    });
-                                  },
-                                  icon: const Icon(Icons.add_circle),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Place order logic
-                        showSnackbar(
-                          message: 'Successfully placed order',
-                          error: false,
-                        );
-                        // SnackBar(content: Text("Successfully place order"));
-                        Navigator.pop(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: mainColor,
-                        minimumSize: Size(double.infinity, 50),
                       ),
-                      child: const Text(
-                        'Place Order',
-                        style: TextStyle(fontSize: 18, color: primaryColorLT),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          );
-        });
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        );
       },
     );
   }

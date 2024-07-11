@@ -24,7 +24,7 @@ class _AddonSelectionState extends State<AddonSelection> {
         const Text(
           "Additional",
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
@@ -130,7 +130,7 @@ class _AddonSelectionState extends State<AddonSelection> {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     color: Colors.black,
                   ),
                 ),
@@ -139,7 +139,7 @@ class _AddonSelectionState extends State<AddonSelection> {
             Text(
               fee,
               style: const TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
               ),
@@ -147,27 +147,24 @@ class _AddonSelectionState extends State<AddonSelection> {
           ],
         ),
         if (isSelected)
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      onPressed: onDecrement,
-                      icon: const Icon(Icons.remove_circle),
-                    ),
-                    Text('$quantity'),
-                    IconButton(
-                      color: mainColor,
-                      onPressed: onIncrement,
-                      icon: const Icon(Icons.add_circle),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: onDecrement,
+                    icon: const Icon(Icons.remove_circle),
+                  ),
+                  Text('$quantity'),
+                  IconButton(
+                    color: mainColor,
+                    onPressed: onIncrement,
+                    icon: const Icon(Icons.add_circle),
+                  ),
+                ],
+              ),
+            ],
           ),
       ],
     );

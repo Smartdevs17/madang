@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:madang/features/cart/controller/cart_controller.dart';
 import 'package:madang/routes/navigation.dart';
 import 'package:madang/routes/routes.dart';
 import 'package:madang/utils/theme/theme.dart';
@@ -11,7 +12,7 @@ void main() async {
   await GetStorage.init();
 
   // Get.put(TokenController()); // Initialize the TokenController
-
+  await GetStorage.init(); // Initialize the GetStorage
   runApp(const MyApp());
 }
 
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
       title: "Madang",
       initialRoute: Routes.auth,
       getPages: routes,
+      initialBinding: BindingsBuilder(() {
+        Get.put(CartController());
+      }),
     );
   }
 }

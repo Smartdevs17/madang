@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:madang/routes/routes.dart';
 import 'package:madang/utils/theme/theme.dart';
 
-class AuthScreen extends StatelessWidget {
-  const AuthScreen({super.key});
+class SuccessOrderScreen extends StatelessWidget {
+  const SuccessOrderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,32 +15,35 @@ class AuthScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              "Madang",
-              style: TextStyle(
-                  color: mainColor,
-                  fontSize: 32,
-                  fontWeight: FontWeight.w900,
-                  fontFamily: "Kantumruy"),
+            Container(
+              width: 80,
+              height: 80,
+              margin: const EdgeInsets.only(right: 10),
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage('assets/images/success.png'),
+                ),
+              ),
             ),
             const SizedBox(
               height: 15,
             ),
             const Text(
-              "Booking a table and food from \neverywhere.",
+              "You've Made Order!",
               style: TextStyle(
                   fontSize: 20,
                   color: primaryColorDK,
                   fontWeight: FontWeight.w600),
             ),
             const SizedBox(
-              height: 100,
+              height: 50,
             ),
             TextButton(
               onPressed: () {
-                Get.toNamed(Routes.register);
+                Get.toNamed(Routes.cart);
               },
               child: Container(
                 height: 50,
@@ -52,7 +55,7 @@ class AuthScreen extends StatelessWidget {
                 ),
                 child: const Center(
                   child: Text(
-                    "Sign Up",
+                    "Check Order",
                     style: TextStyle(
                         color: primaryColorLT,
                         fontSize: 16,
@@ -66,7 +69,7 @@ class AuthScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Get.toNamed(Routes.login);
+                Get.toNamed(Routes.home);
               },
               child: Container(
                 height: 50,
@@ -79,7 +82,7 @@ class AuthScreen extends StatelessWidget {
                 ),
                 child: const Center(
                   child: Text(
-                    "Login",
+                    "Back Home",
                     style: TextStyle(
                         color: mainColor,
                         fontSize: 16,

@@ -28,7 +28,10 @@ class RecentlySearched extends StatelessWidget {
         const Text(
           'Recently Search',
           style: TextStyle(
-              color: primaryColorDK, fontSize: 24, fontWeight: FontWeight.bold),
+            color: primaryColorDK,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 10),
         SingleChildScrollView(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:madang/features/home/presentation/recommendation_section.dart';
 import 'package:madang/features/search/presentation/recently_searched.dart';
 import 'package:madang/features/search/widget/search_widget.dart';
 import 'package:madang/routes/bottom_nav_bar.dart';
@@ -31,7 +30,7 @@ class SearchScreen extends StatelessWidget {
                 const Text(
                   "Search",
                   style: TextStyle(
-                    fontSize: 32,
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: primaryColorDK,
                   ),
@@ -42,7 +41,7 @@ class SearchScreen extends StatelessWidget {
                 const Text(
                   "Popular Search",
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: primaryColorDK,
                   ),
@@ -69,8 +68,8 @@ class SearchScreen extends StatelessWidget {
                         search,
                         style: const TextStyle(
                           color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
                         ),
                       ),
                     );

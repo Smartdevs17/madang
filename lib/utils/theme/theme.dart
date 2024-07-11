@@ -44,7 +44,7 @@ final ThemeData appTheme = ThemeData(
     bodyMedium: bodyText2,
   ),
   // Set default font family to Lato Regular
-  fontFamily: GoogleFonts.kantumruyPro().fontFamily,
+  fontFamily: "Kantumruy",
 );
 
 final InputDecoration inputDecoration = InputDecoration(

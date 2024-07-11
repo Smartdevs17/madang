@@ -17,7 +17,8 @@ class SearchWidget extends StatelessWidget {
       // onFieldSubmitted: onSearchChanged, // Callback when search is submitted
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(
-            horizontal: 16), // Adjust padding as needed
+          horizontal: 16,
+        ), // Adjust padding as needed
         prefixIcon: Padding(
           padding: const EdgeInsets.only(
               left: 8, right: 8), // Adjust padding as needed

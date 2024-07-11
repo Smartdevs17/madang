@@ -15,7 +15,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool _invisiblePassword = true;
-  String? _name, _email, _password;
+  // String? _name, _email, _password;
 
   @override
   Widget build(BuildContext context) {
@@ -241,9 +241,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Text(
                               "Sign Up Now",
                               style: TextStyle(
-                                  color: primaryColorLT,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
+                                color: primaryColorLT,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ),

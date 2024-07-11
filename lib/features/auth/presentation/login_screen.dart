@@ -15,7 +15,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _invisiblePassword = true;
-  String? _email, _password;
+  // String? _email, _password;
 
   @override
   Widget build(BuildContext context) {

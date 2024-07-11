@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:madang/routes/routes.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 class PaymentMethodScreen extends StatefulWidget {
+  const PaymentMethodScreen({super.key});
+
   @override
   _PaymentMethodScreenState createState() => _PaymentMethodScreenState();
 }
@@ -99,6 +103,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                     ? null
                     : () {
                         // Handle Pay Now
+                        Get.toNamed(Routes.successOrder);
                       },
                 style: ElevatedButton.styleFrom(
                   backgroundColor:

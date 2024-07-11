@@ -137,6 +137,7 @@ class BottomNavBarButton extends StatelessWidget {
                         icon,
                         height: 26,
                         width: 26,
+                        // ignore: deprecated_member_use
                         color: isActive ? mainColor : neutralGrey,
                       ),
                     )
@@ -147,7 +148,7 @@ class BottomNavBarButton extends StatelessWidget {
                     label,
                     maxLines: 1,
                     style: TextStyle(
-                      fontSize: 12.0,
+                      fontSize: 16.0,
                       fontWeight: FontWeight.w700,
                       color: isActive ? mainColor : neutralGrey,
                     ),
