@@ -11,8 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
 
-  // Get.put(TokenController()); // Initialize the TokenController
-  await GetStorage.init(); // Initialize the GetStorage
+  await GetStorage.init();
   runApp(const MyApp());
 }
 

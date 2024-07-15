@@ -19,13 +19,13 @@ class Routes {
   static const String table = "/tableScreen";
   static const String cart = "/cartScreen";
   static const String payment = "/paymentScreen";
-  static const String paymentMethod = '/payment-method';
-  static const String myCart = '/my-cart';
-  static const String helpAndReport = '/help-and-report';
+  static const String paymentMethod = '/paymentMethod';
+  static const String myCart = '/myCart';
+  static const String helpAndReport = '/helpAndReport';
   static const String language = '/language';
   static const String notification = '/notification';
-  static const String privacyPolicy = '/privacy-policy';
-  static const String newsAndServices = '/news-and-services';
-  static const String giveRating = '/give-rating';
-  static const String successOrder = '/success-order';
+  static const String privacyPolicy = '/privacyPolicy';
+  static const String newsAndServices = '/newsAndServices';
+  static const String giveRating = '/giveRating';
+  static const String successOrder = '/successOrder';
 }
