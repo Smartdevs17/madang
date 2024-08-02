@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:madang/features/profile/controller/profile_controller.dart';
 import 'package:madang/features/profile/widget/profile_option.dart';
 import 'package:madang/features/profile/widget/section_header.dart';
-import 'package:madang/routes/bottom_nav_bar.dart';
 import 'package:madang/routes/routes.dart';
+import 'package:madang/services/api_service.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final ProfileController _profileController = Get.put(ProfileController());
+
+  ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final ApiService apiService = ApiService();
+
     return Scaffold(
       backgroundColor: primaryColorLT,
       body: SafeArea(
@@ -38,19 +43,19 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(
                     width: 20,
                   ),
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Michael Owen",
-                        style: TextStyle(
+                        _profileController.userProfile.name,
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "michaelowen@gmail.com",
-                        style: TextStyle(
+                        _profileController.userProfile.email,
+                        style: const TextStyle(
                           fontSize: 16,
                           color: primaryColorDK,
                         ),
@@ -150,9 +155,10 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     Center(
                       child: TextButton(
-                        onPressed: () {
+                        onPressed: () async {
                           // Handle Logout
-                          Get.offAndToNamed(Routes.auth);
+                          // Get.offAndToNamed(Routes.auth);
+                          await apiService.logout();
                         },
                         child: const Text(
                           "Logout",
@@ -170,7 +176,6 @@ class ProfileScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(activeIndex: 3),
     );
   }
 }

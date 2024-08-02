@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:madang/routes/routes.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int activeIndex;
-  const BottomNavBar({super.key, required this.activeIndex});
+  final Function(int) onItemTapped;
+
+  const BottomNavBar({
+    Key? key,
+    required this.activeIndex,
+    required this.onItemTapped,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +19,13 @@ class BottomNavBar extends StatelessWidget {
         color: primaryColorLT,
         boxShadow: [
           BoxShadow(
-            color: Colors.black12.withOpacity(.01), // Shadow color
-            blurRadius: 10.0, // Blur radius
-            offset: Offset(0, -5), // Shadow position
-            // color: Colors.grey.withOpacity(0.1),
-            // spreadRadius: 1,
-            // blurRadius: 2,
-            // offset: Offset(0, 1),
+            color: Colors.black12.withOpacity(.01),
+            blurRadius: 10.0,
+            offset: Offset(0, -5),
           ),
         ],
       ),
-      height: 100.0,
+      height: 80.0,
       child: Row(
         children: <Widget>[
           Expanded(
@@ -35,8 +35,7 @@ class BottomNavBar extends StatelessWidget {
               label: "Home",
               isActive: activeIndex == 0,
               onTap: () {
-                if (activeIndex == 0) return;
-                Get.offAllNamed(Routes.home);
+                if (activeIndex != 0) onItemTapped(0);
               },
             ),
           ),
@@ -47,12 +46,7 @@ class BottomNavBar extends StatelessWidget {
               label: "Search",
               isActive: activeIndex == 1,
               onTap: () {
-                if (activeIndex == 1) return;
-                if (activeIndex == 0) {
-                  Get.toNamed(Routes.search);
-                } else {
-                  Get.offAndToNamed(Routes.search);
-                }
+                if (activeIndex != 1) onItemTapped(1);
               },
             ),
           ),
@@ -63,12 +57,7 @@ class BottomNavBar extends StatelessWidget {
               label: "Recent",
               isActive: activeIndex == 2,
               onTap: () {
-                if (activeIndex == 2) return;
-                if (activeIndex == 0) {
-                  Get.toNamed(Routes.recent);
-                } else {
-                  Get.offAndToNamed(Routes.recent);
-                }
+                if (activeIndex != 2) onItemTapped(2);
               },
             ),
           ),
@@ -79,12 +68,7 @@ class BottomNavBar extends StatelessWidget {
               label: "Profile",
               isActive: activeIndex == 3,
               onTap: () {
-                if (activeIndex == 3) return;
-                if (activeIndex == 0) {
-                  Get.toNamed(Routes.profile);
-                } else {
-                  Get.offAndToNamed(Routes.profile);
-                }
+                if (activeIndex != 3) onItemTapped(3);
               },
             ),
           ),
@@ -102,13 +86,13 @@ class BottomNavBarButton extends StatelessWidget {
   final Widget? widget;
 
   BottomNavBarButton({
-    super.key,
+    Key? key,
     required this.isActive,
     required this.icon,
     this.label = '',
     this.widget,
     this.onTap,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -137,7 +121,6 @@ class BottomNavBarButton extends StatelessWidget {
                         icon,
                         height: 26,
                         width: 26,
-                        // ignore: deprecated_member_use
                         color: isActive ? mainColor : neutralGrey,
                       ),
                     )

@@ -95,26 +95,29 @@ class _FoodScreenState extends State<FoodScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            const Wrap(
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: [
-                Chip(
-                  label: Text('Dinner Food'),
-                  backgroundColor: Color(0xffF3F1F1),
-                ),
-                Chip(
-                    label: Text('Economic Food'),
-                    backgroundColor: Color(0xffF3F1F1)),
-                Chip(
-                  label: Text('Hot Food'),
-                  backgroundColor: Color(0xffF3F1F1),
-                ),
-                Chip(
-                  label: Text('Family Food'),
-                  backgroundColor: Color(0xffF3F1F1),
-                ),
-              ],
+            const SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Wrap(
+                spacing: 8.0,
+                runSpacing: 8.0,
+                children: [
+                  Chip(
+                    label: Text('Dinner Food'),
+                    backgroundColor: Color(0xffF3F1F1),
+                  ),
+                  Chip(
+                      label: Text('Economic Food'),
+                      backgroundColor: Color(0xffF3F1F1)),
+                  Chip(
+                    label: Text('Hot Food'),
+                    backgroundColor: Color(0xffF3F1F1),
+                  ),
+                  Chip(
+                    label: Text('Family Food'),
+                    backgroundColor: Color(0xffF3F1F1),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 10),
             Expanded(
@@ -204,6 +207,11 @@ class _FoodScreenState extends State<FoodScreen> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
             return DraggableScrollableSheet(
+              initialChildSize:
+                  0.6, // Initial height is 50% of the screen height
+              minChildSize: 0.5, // Minimum height is 25% of the screen height
+              maxChildSize: 0.7, // Maximum height is 90% of the screen height
+
               expand: false,
               builder:
                   (BuildContext context, ScrollController scrollController) {

@@ -61,6 +61,21 @@ class Validator {
     }
   }
 
+  //confirm password validator
+  static String? confirmPasswordValidator(
+      String? confirmVal, String? password) {
+    if (confirmVal == null || confirmVal.isEmpty) {
+      return "Please confirm your password";
+    }
+    if (password == null || password.isEmpty) {
+      return "Please enter a valid password first";
+    }
+    if (confirmVal != password) {
+      return "Passwords do not match";
+    }
+    return null; // Return null if validation is successful
+  }
+
   //Validator for creating document
   static String? documentValidator(String? value) {
     if (value == null || value.isEmpty) {

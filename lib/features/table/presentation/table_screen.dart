@@ -59,7 +59,7 @@ class _TableScreenState extends State<TableScreen> {
             TextFormField(
               decoration: InputDecoration(
                 hintText: 'Search table',
-                prefixIcon: Icon(Icons.search),
+                prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
@@ -72,33 +72,36 @@ class _TableScreenState extends State<TableScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            Wrap(
-              spacing: 8.0,
-              runSpacing: 8.0,
-              children: [
-                Chip(
-                  label: Text('Single Table'),
-                  backgroundColor: Color(0xffF3F1F1),
-                ),
-                Chip(
-                  label: Text('Double Table'),
-                  backgroundColor: Color(0xffF3F1F1),
-                ),
-                Chip(
-                  label: Text('Family Table'),
-                  backgroundColor: Color(0xffF3F1F1),
-                ),
-                Chip(
-                  label: Text('Special Table'),
-                  backgroundColor: Color(0xffF3F1F1),
-                ),
-              ],
+            const SizedBox(height: 10),
+            const SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Wrap(
+                spacing: 8.0,
+                runSpacing: 8.0,
+                children: [
+                  Chip(
+                    label: Text('Single Table'),
+                    backgroundColor: Color(0xffF3F1F1),
+                  ),
+                  Chip(
+                    label: Text('Double Table'),
+                    backgroundColor: Color(0xffF3F1F1),
+                  ),
+                  Chip(
+                    label: Text('Family Table'),
+                    backgroundColor: Color(0xffF3F1F1),
+                  ),
+                  Chip(
+                    label: Text('Special Table'),
+                    backgroundColor: Color(0xffF3F1F1),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Expanded(
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 1,
                   childAspectRatio: 2.5,
                   crossAxisSpacing: 8.0,
@@ -118,7 +121,7 @@ class _TableScreenState extends State<TableScreen> {
                           ),
                           child: ClipRRect(
                             borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
+                                const BorderRadius.all(Radius.circular(8.0)),
                             child: Image.asset(
                               table['image'],
                               height: 300,
@@ -188,10 +191,10 @@ class _TableScreenState extends State<TableScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Center(
-                          child: Container(
+                        const Center(
+                          child: SizedBox(
                             width: 28,
-                            child: const Divider(
+                            child: Divider(
                               color: neutralGrey,
                               height: 2,
                               thickness: 3,
@@ -270,10 +273,10 @@ class _TableScreenState extends State<TableScreen> {
                                                 child: Text(
                                                   "x",
                                                   style: TextStyle(
-                                                      color: mainColor,
-                                                      fontSize: 8,
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                    color: mainColor,
+                                                    fontSize: 8,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
                                                 ),
                                               ),
                                             ),

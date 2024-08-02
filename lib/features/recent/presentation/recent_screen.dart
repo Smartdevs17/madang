@@ -65,7 +65,6 @@ class _RecentScreenState extends State<RecentScreen>
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(activeIndex: 2),
     );
   }
 }

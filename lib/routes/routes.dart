@@ -9,6 +9,7 @@ class Routes {
   static const String auth = "/authScreen";
   static const String otp = "/otpScreen";
   static const String resetPassword = "/resetPasswordScreen";
+  static const String index = "/DashboardScreen";
   static const String home = "/homeScreen";
   static const String document = "/documentScreen";
   static const String search = "/searchScreen";

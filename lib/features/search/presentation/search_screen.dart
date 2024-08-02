@@ -84,9 +84,6 @@ class SearchScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(
-        activeIndex: 1,
-      ),
     );
   }
 }

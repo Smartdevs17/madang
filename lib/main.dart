@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:madang/features/auth/controller/token_controller.dart';
 import 'package:madang/features/cart/controller/cart_controller.dart';
 import 'package:madang/routes/navigation.dart';
 import 'package:madang/routes/routes.dart';
@@ -11,7 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
 
-  await GetStorage.init();
+  Get.put(TokenController()); // Initialize the TokenController
   runApp(const MyApp());
 }
 
@@ -30,7 +31,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: appTheme,
       title: "Madang",
-      initialRoute: Routes.auth,
+      initialRoute: Get.find<TokenController>().isAuthenticated.value
+          ? Routes.index
+          : Routes.auth,
       getPages: routes,
       initialBinding: BindingsBuilder(() {
         Get.put(CartController());

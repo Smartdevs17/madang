@@ -170,11 +170,3 @@ class _AddonSelectionState extends State<AddonSelection> {
     );
   }
 }
-
-void main() => runApp(MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: AddonSelection(),
-        ),
-      ),
-    ));

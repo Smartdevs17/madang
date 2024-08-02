@@ -69,7 +69,7 @@ class SuccessOrderScreen extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {
-                Get.toNamed(Routes.home);
+                Get.toNamed(Routes.index);
               },
               child: Container(
                 height: 50,

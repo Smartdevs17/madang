@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:madang/routes/routes.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:madang/features/auth/controller/auth_controller.dart';
+import 'package:madang/utils/constants/constants.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 class OTPScreen extends StatefulWidget {
@@ -13,10 +14,12 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
+  AuthController authController = AuthController();
   List<TextEditingController> _controllers = [];
   List<FocusNode> _focusNodes = [];
   Timer? _timer;
   int _start = 60; // Countdown duration in seconds
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -72,13 +75,20 @@ class _OTPScreenState extends State<OTPScreen> {
     });
   }
 
-  void _submitOTP() {
+  void _submitOTP() async {
+    setState(() {
+      _isLoading = true;
+    });
+    var email = GetStorage().read(Constants.User_Email) ?? '';
     String enteredOTP =
         _controllers.map((controller) => controller.text).join();
     // Implement validation and submission logic here
+    print("User email: $email");
     print("Entered OTP: $enteredOTP");
-    // Navigate to the next screen or perform necessary actions upon OTP submission
-    Get.toNamed(Routes.home);
+    await authController.validateEmail(email, enteredOTP);
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -142,15 +152,23 @@ class _OTPScreenState extends State<OTPScreen> {
                   ),
                   child: TextButton(
                     onPressed: _submitOTP,
-                    child: const Center(
-                      child: Text(
-                        "Submit",
-                        style: TextStyle(
-                          color: primaryColorLT,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                    child: Center(
+                      child: _isLoading
+                          ? const SizedBox(
+                              width: 24.0,
+                              height: 24.0,
+                              child: CircularProgressIndicator(
+                                color: primaryColorLT,
+                              ),
+                            )
+                          : const Text(
+                              "Submit",
+                              style: TextStyle(
+                                color: primaryColorLT,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                     ),
                   ),
                 ),

@@ -5,6 +5,7 @@ import 'package:madang/features/auth/presentation/otp_screen.dart';
 import 'package:madang/features/auth/presentation/register_screen.dart';
 import 'package:madang/features/cart/presentation/cart_screen.dart';
 import 'package:madang/features/food/presentation/food_screen.dart';
+import 'package:madang/features/home/presentation/dashboard_screen.dart';
 import 'package:madang/features/home/presentation/home_screen.dart';
 import 'package:madang/features/payment/presentation/success_order_screen.dart';
 import 'package:madang/features/profile/presentation/cart_screen.dart';
@@ -28,11 +29,12 @@ var routes = [
   GetPage(name: Routes.login, page: () => const LoginScreen()),
   GetPage(name: Routes.register, page: () => const RegisterScreen()),
   GetPage(name: Routes.otp, page: () => const OTPScreen()),
+  GetPage(name: Routes.index, page: () => DashboardScreen()),
   GetPage(name: Routes.home, page: () => const HomeScreen()),
   GetPage(name: Routes.search, page: () => const SearchScreen()),
   GetPage(name: Routes.recent, page: () => RecentScreen()),
-  GetPage(name: Routes.profile, page: () => const ProfileScreen()),
-  GetPage(name: Routes.paymentMethod, page: () => PaymentMethodScreen()),
+  GetPage(name: Routes.profile, page: () => ProfileScreen()),
+  GetPage(name: Routes.paymentMethod, page: () => const PaymentMethodScreen()),
   GetPage(name: Routes.myCart, page: () => MyCartScreen()),
   GetPage(name: Routes.helpAndReport, page: () => HelpAndReportScreen()),
   GetPage(name: Routes.language, page: () => LanguageScreen()),
