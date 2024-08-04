@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:madang/features/profile/controller/profile_controller.dart';
+import 'package:madang/features/profile/presentation/edit_profile_screen.dart';
 import 'package:madang/features/profile/widget/profile_option.dart';
 import 'package:madang/features/profile/widget/section_header.dart';
 import 'package:madang/routes/routes.dart';
@@ -8,7 +9,7 @@ import 'package:madang/services/api_service.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 class ProfileScreen extends StatelessWidget {
-  final ProfileController _profileController = Get.put(ProfileController());
+  final ProfileController _profileController = Get.find();
 
   ProfileScreen({super.key});
 
@@ -69,6 +70,8 @@ class ProfileScreen extends StatelessWidget {
                         icon: const Icon(Icons.edit, color: primaryColorDK),
                         onPressed: () {
                           // Navigate to Edit Profile screen
+                          Get.to(() => EditProfileScreen(
+                              user: _profileController.userProfile));
                         },
                       ),
                       const Text(

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:madang/features/table/controller/table_controller.dart';
+import 'package:madang/features/table/model/table_model.dart';
 import 'package:madang/features/table/presentation/addon_selection.dart';
+import 'package:madang/features/table/presentation/table_details.dart';
 import 'package:madang/utils/action/action.dart';
 import 'package:madang/utils/theme/theme.dart';
 
@@ -11,29 +15,7 @@ class TableScreen extends StatefulWidget {
 }
 
 class _TableScreenState extends State<TableScreen> {
-  final List<Map<String, dynamic>> tables = [
-    {
-      'name': 'Work Table',
-      'details': '1 table 1 chair',
-      'image': 'assets/images/table1.png',
-    },
-    {
-      'name': 'Family Table',
-      'details': '1 table 6 chairs',
-      'image': 'assets/images/table2.png',
-    },
-  ];
-
-  List<String> times = [
-    '30 minutes',
-    '45 minutes',
-    '1 hour',
-    '2 hours',
-  ];
-
-  String selectedTime = '';
-  bool isCustomTime = false;
-  TextEditingController customTimeController = TextEditingController();
+  final TableController tableController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -73,30 +55,30 @@ class _TableScreenState extends State<TableScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            const SingleChildScrollView(
+            SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Wrap(
-                spacing: 8.0,
-                runSpacing: 8.0,
-                children: [
-                  Chip(
-                    label: Text('Single Table'),
-                    backgroundColor: Color(0xffF3F1F1),
-                  ),
-                  Chip(
-                    label: Text('Double Table'),
-                    backgroundColor: Color(0xffF3F1F1),
-                  ),
-                  Chip(
-                    label: Text('Family Table'),
-                    backgroundColor: Color(0xffF3F1F1),
-                  ),
-                  Chip(
-                    label: Text('Special Table'),
-                    backgroundColor: Color(0xffF3F1F1),
-                  ),
-                ],
-              ),
+              child: Obx(() {
+                if (!tableController.loading.value) {
+                  // If loading is complete, build the Wrap widget
+                  if (tableController.tableCategories.isNotEmpty) {
+                    return Wrap(
+                      spacing: 8.0,
+                      runSpacing: 8.0,
+                      children: tableController.tableCategories.map((category) {
+                        return Chip(
+                          label: Text(category),
+                          backgroundColor: const Color(0xffF3F1F1),
+                        );
+                      }).toList(),
+                    );
+                  } else {
+                    return Container();
+                  }
+                } else {
+                  // While loading, you might want to show a loading indicator
+                  return Container();
+                }
+              }),
             ),
             const SizedBox(height: 10),
             Expanded(
@@ -107,11 +89,11 @@ class _TableScreenState extends State<TableScreen> {
                   crossAxisSpacing: 8.0,
                   mainAxisSpacing: 8.0,
                 ),
-                itemCount: tables.length,
+                itemCount: tableController.tables.length,
                 itemBuilder: (context, index) {
-                  final table = tables[index];
+                  final table = tableController.tables[index];
                   return GestureDetector(
-                    onTap: () => _showTableDetails(context, table),
+                    onTap: () => showTableDetails(context, table),
                     child: Stack(
                       children: [
                         Card(
@@ -122,9 +104,9 @@ class _TableScreenState extends State<TableScreen> {
                           child: ClipRRect(
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8.0)),
-                            child: Image.asset(
-                              table['image'],
-                              height: 300,
+                            child: Image.network(
+                              table.image!,
+                              height: 400,
                               width: double.infinity,
                               fit: BoxFit.fill,
                             ),
@@ -139,13 +121,13 @@ class _TableScreenState extends State<TableScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  table['name'],
+                                  table.name!,
                                   style: const TextStyle(
                                       fontSize: 24, color: primaryColorLT),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  table['details'],
+                                  "${table.name} table ${table.capacity} chairs",
                                   style: const TextStyle(
                                     fontSize: 16,
                                     color: primaryColorLT,
@@ -164,234 +146,6 @@ class _TableScreenState extends State<TableScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  void _showTableDetails(BuildContext context, Map<String, dynamic> table) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) {
-        return StatefulBuilder(
-            builder: (BuildContext context, StateSetter setState) {
-          return DraggableScrollableSheet(
-            initialChildSize: 0.6,
-            maxChildSize: 0.9,
-            minChildSize: 0.4,
-            expand: false,
-            builder: (context, scrollController) {
-              return Padding(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom,
-                ),
-                child: SingleChildScrollView(
-                  controller: scrollController,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 10, 16, 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Center(
-                          child: SizedBox(
-                            width: 28,
-                            child: Divider(
-                              color: neutralGrey,
-                              height: 2,
-                              thickness: 3,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          "Time",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Wrap(
-                          spacing: 10, // Space between items
-                          runSpacing: 10, // Space between rows
-                          alignment: WrapAlignment
-                              .start, // Align items to the start of the row
-                          children: times.map((time) {
-                            bool isSelected = selectedTime == time;
-                            return GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  selectedTime = time;
-                                  isCustomTime = false;
-                                });
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
-                                  horizontal: 10,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: isSelected
-                                      ? mainColor
-                                      : const Color(0xffF3F1F1),
-                                  borderRadius: BorderRadius.circular(
-                                      20), // High border radius
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      time,
-                                      style: TextStyle(
-                                        color: isSelected
-                                            ? Colors.white
-                                            : primaryColorDK,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                    if (isSelected)
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 8.0),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              selectedTime = "";
-                                              isSelected = false;
-                                            });
-                                          },
-                                          child: Container(
-                                            height: 12,
-                                            width: 12,
-                                            decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: primaryColorLT,
-                                            ),
-                                            child: const Center(
-                                              child: Padding(
-                                                padding: EdgeInsets.all(0.1),
-                                                child: Text(
-                                                  "x",
-                                                  style: TextStyle(
-                                                    color: mainColor,
-                                                    fontSize: 8,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        ),
-                        const SizedBox(height: 10),
-                        if (!isCustomTime)
-                          Center(
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isCustomTime = !isCustomTime;
-                                  if (isCustomTime) {
-                                    selectedTime = 'custom';
-                                  }
-                                });
-                              },
-                              child: const Text(
-                                "custom time",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: mainColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        if (isCustomTime)
-                          RadioListTile(
-                            value: "custom",
-                            groupValue: selectedTime,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedTime = value.toString();
-                                isCustomTime = false;
-                              });
-                            },
-                            activeColor: mainColor,
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 10),
-                                TextFormField(
-                                  controller: customTimeController,
-                                  decoration: InputDecoration(
-                                    hintText: '10 minutes',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                      borderSide: const BorderSide(
-                                        color: neutralGrey,
-                                        width: 1,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const Text(
-                                  "example: 10 minutes, 1 hour",
-                                  style: TextStyle(fontSize: 10),
-                                ),
-                              ],
-                            ),
-                          ),
-                        const SizedBox(height: 10),
-                        const AddonSelection(),
-                        const SizedBox(height: 10),
-                        const Column(
-                          children: [
-                            Row(
-                              children: [
-                                Row(
-                                  children: [],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        ElevatedButton(
-                          onPressed: () {
-                            // Book table logic
-                            showSnackbar(
-                              message: 'Successfully booking table',
-                              error: false,
-                            );
-                            Navigator.pop(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: mainColor,
-                            minimumSize: const Size(double.infinity, 50),
-                          ),
-                          child: const Text(
-                            'Book Table',
-                            style:
-                                TextStyle(fontSize: 16, color: primaryColorLT),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          );
-        });
-      },
     );
   }
 }

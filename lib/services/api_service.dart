@@ -119,25 +119,32 @@ class ApiService {
   // HTTP GET
   static Future<ApiResponseModel> get({required String path}) async {
     final String? token = Get.find<TokenController>().token.value;
-    log(token ?? '');
-    try {
-      final http.Response response = await http.get(
-        Uri.parse('${Constants.baseUrl}/$path'),
-        headers: <String, String>{
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': "Bearer $token",
-        },
-      );
-      log(response.body.toString());
-      return ApiResponseModel.fromMap(jsonDecode(response.body));
-    } catch (e) {
-      return ApiResponseModel(
-        success: false,
-        message: e.toString(),
-        data: <dynamic, dynamic>{},
-      );
+
+    if (token != null && token.isNotEmpty) {
+      try {
+        final http.Response response = await http.get(
+          Uri.parse('${Constants.baseUrl}/$path'),
+          headers: <String, String>{
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': "Bearer $token",
+          },
+        );
+        log(response.body.toString());
+        return ApiResponseModel.fromMap(jsonDecode(response.body));
+      } catch (e) {
+        return ApiResponseModel(
+          success: false,
+          message: e.toString(),
+          data: <dynamic, dynamic>{},
+        );
+      }
     }
+    return ApiResponseModel(
+      success: false,
+      message: 'No token found',
+      data: <dynamic, dynamic>{},
+    );
   }
 
   // HTTP PUT

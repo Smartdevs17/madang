@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:madang/features/home/controller/home_controller.dart';
 import 'package:madang/features/profile/controller/profile_controller.dart';
 import 'package:madang/routes/routes.dart';
 import 'package:madang/services/api_service.dart';
@@ -12,7 +13,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthController extends GetxController {
   //Auth Loading State
   RxBool isLoading = RxBool(false);
-  final ProfileController _profileController = Get.put(ProfileController());
+  final HomeController _homeController = Get.put(HomeController());
+
+  //Auth Loading State
+  void toggleLoading() {
+    isLoading.value = !isLoading.value;
+  }
 
   //ApiService
   final ApiService _apiService = ApiService();
@@ -77,7 +83,8 @@ class AuthController extends GetxController {
         showSnackbar(
             title: user['message'], message: user['error'], error: true);
       } else {
-        _profileController.processDataToState(user['data']);
+        _homeController.loadData();
+
         showSnackbar(
           title: "Login successful!",
           message: user['message'],
@@ -118,7 +125,7 @@ class AuthController extends GetxController {
         showSnackbar(
             title: user['message'], message: user['error'], error: true);
       } else {
-        _profileController.processDataToState(user['data']);
+        _homeController.loadData();
         showSnackbar(
           title: "Email verified successfully!",
           message: user['message'],

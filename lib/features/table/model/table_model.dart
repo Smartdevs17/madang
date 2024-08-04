@@ -1,75 +1,77 @@
 import 'dart:convert';
 
-FoodModel foodModelFromMap(String str) => FoodModel.fromMap(json.decode(str));
+TableModel tableModelFromMap(String str) =>
+    TableModel.fromMap(json.decode(str));
 
-String foodModelToMap(FoodModel data) => json.encode(data.toMap());
+String tableModelToMap(TableModel data) => json.encode(data.toMap());
 
-class FoodModel {
+class TableModel {
   int? id;
   String? name;
+  int? number;
+  int? capacity;
   String? image;
-  String? description;
   int? price;
   int? restaurantId;
   int? categoryId;
-  dynamic ratings;
-  int? averageRating;
+  dynamic addons;
 
-  FoodModel({
+  TableModel({
     this.id,
     this.name,
+    this.number,
+    this.capacity,
     this.image,
-    this.description,
     this.price,
     this.restaurantId,
     this.categoryId,
-    this.ratings,
-    this.averageRating,
+    this.addons,
   });
 
-  FoodModel copyWith({
+  TableModel copyWith({
     int? id,
+    String? name,
+    int? number,
+    int? capacity,
     String? image,
-    String? description,
     int? price,
     int? restaurantId,
     int? categoryId,
-    dynamic ratings,
-    int? averageRating,
+    dynamic addons,
   }) =>
-      FoodModel(
+      TableModel(
         id: id ?? this.id,
         name: name ?? this.name,
+        number: number ?? this.number,
+        capacity: capacity ?? this.capacity,
         image: image ?? this.image,
-        description: description ?? this.description,
         price: price ?? this.price,
         restaurantId: restaurantId ?? this.restaurantId,
         categoryId: categoryId ?? this.categoryId,
-        ratings: ratings ?? this.ratings,
-        averageRating: averageRating ?? this.averageRating,
+        addons: addons ?? this.addons,
       );
 
-  factory FoodModel.fromMap(Map<String, dynamic> json) => FoodModel(
+  factory TableModel.fromMap(Map<String, dynamic> json) => TableModel(
         id: json["id"],
         name: json["name"],
+        number: json["number"],
+        capacity: json["capacity"],
         image: json["image"],
-        description: json["description"],
         price: json["price"],
         restaurantId: json["restaurant_id"],
         categoryId: json["category_id"],
-        ratings: json["ratings"],
-        averageRating: json["average_rating"],
+        addons: json["addons"],
       );
 
   Map<String, dynamic> toMap() => {
         "id": id,
         "name": name,
+        "number": number,
+        "capacity": capacity,
         "image": image,
-        "description": description,
         "price": price,
         "restaurant_id": restaurantId,
         "category_id": categoryId,
-        "ratings": ratings,
-        "average_rating": averageRating,
+        "addons": addons,
       };
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:madang/utils/action/format_price.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 class RecommendationItem extends StatelessWidget {
@@ -7,7 +8,7 @@ class RecommendationItem extends StatelessWidget {
   final double rating;
   final String title;
   final String details;
-  final String price;
+  final int price;
 
   const RecommendationItem({
     Key? key,
@@ -44,7 +45,7 @@ class RecommendationItem extends StatelessWidget {
               ClipRRect(
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(10)),
-                child: Image.asset(
+                child: Image.network(
                   image,
                   fit: BoxFit.cover,
                   width: double.infinity,
@@ -71,7 +72,8 @@ class RecommendationItem extends StatelessWidget {
                       const SizedBox(width: 2),
                       Text(
                         rating.toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 12),
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 12),
                       ),
                     ],
                   ),
@@ -86,27 +88,30 @@ class RecommendationItem extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  maxLines: 1,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
                 Text(
                   details,
-                  style: TextStyle(
+                  maxLines: 1,
+                  style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 12,
+                    overflow: TextOverflow.clip,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
                 Text(
-                  price,
-                  style: TextStyle(
+                  formatPrice(price),
+                  style: const TextStyle(
                     color: mainColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 14,

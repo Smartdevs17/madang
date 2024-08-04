@@ -1,6 +1,6 @@
 class Constants {
   //STORAGE CONSTANTS
-  static const accessToken = "accessToken";
+  static const accessToken = "";
   static const userId = "userId";
   static const User_Email = "email";
 

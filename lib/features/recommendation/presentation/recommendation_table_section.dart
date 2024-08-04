@@ -3,16 +3,17 @@ import 'package:get/get.dart';
 import 'package:madang/features/recommendation/widget/recommendation_item.dart';
 import 'package:madang/features/table/controller/table_controller.dart';
 import 'package:madang/features/table/presentation/table_details.dart';
-import 'package:madang/utils/theme/theme.dart';
 
-class RecentlySearched extends StatefulWidget {
-  const RecentlySearched({super.key});
+class RecommendationTableSection extends StatefulWidget {
+  const RecommendationTableSection({super.key});
 
   @override
-  State<RecentlySearched> createState() => _RecentlySearchedState();
+  State<RecommendationTableSection> createState() =>
+      _RecommendationTableSectionState();
 }
 
-class _RecentlySearchedState extends State<RecentlySearched> {
+class _RecommendationTableSectionState
+    extends State<RecommendationTableSection> {
   final TableController tableController = Get.find();
 
   List<String> times = [
@@ -33,15 +34,6 @@ class _RecentlySearchedState extends State<RecentlySearched> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Recently Search',
-          style: TextStyle(
-            color: primaryColorDK,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 10),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(

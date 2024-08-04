@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:madang/features/food/controller/food_controller.dart';
+import 'package:madang/features/food/presentation/food_details.dart';
 import 'package:madang/features/recommendation/widget/recommendation_item.dart';
-import 'package:madang/features/table/controller/table_controller.dart';
-import 'package:madang/features/table/presentation/table_details.dart';
-import 'package:madang/utils/theme/theme.dart';
 
-class RecentlySearched extends StatefulWidget {
-  const RecentlySearched({super.key});
+class RecommendationFoodSection extends StatefulWidget {
+  const RecommendationFoodSection({super.key});
 
   @override
-  State<RecentlySearched> createState() => _RecentlySearchedState();
+  State<RecommendationFoodSection> createState() =>
+      _RecommendationFoodSectionState();
 }
 
-class _RecentlySearchedState extends State<RecentlySearched> {
-  final TableController tableController = Get.find();
+class _RecommendationFoodSectionState extends State<RecommendationFoodSection> {
+  final FoodController foodController = Get.find();
 
   List<String> times = [
     '30 minutes',
@@ -33,33 +33,23 @@ class _RecentlySearchedState extends State<RecentlySearched> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Recently Search',
-          style: TextStyle(
-            color: primaryColorDK,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 10),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: tableController.recommendedTables.map((table) {
+            children: foodController.recommendedFoods.map((food) {
               return Padding(
                 padding: const EdgeInsets.only(right: 10.0),
                 child: Obx(() {
-                  if (!tableController.loading.value) {
-                    if (tableController.tables.isNotEmpty) {
+                  if (!foodController.loading.value) {
+                    if (foodController.foods.isNotEmpty) {
                       return GestureDetector(
-                        onTap: () => showTableDetails(context, table),
+                        onTap: () => showFoodDetails(context, food),
                         child: RecommendationItem(
-                          image: table.image!,
+                          image: food.image!,
                           rating: 4.7,
-                          title: table.name!,
-                          details:
-                              '${table.number} table ${table.capacity} chair',
-                          price: table.price!,
+                          title: food.name!,
+                          details: food.description!,
+                          price: food.price!,
                         ),
                       );
                     } else {

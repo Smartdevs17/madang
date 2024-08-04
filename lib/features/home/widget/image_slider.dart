@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:madang/utils/theme/theme.dart';
 
@@ -15,6 +16,37 @@ class _ImageSliderState extends State<ImageSlider> {
     'assets/images/super family.png',
     'assets/images/super deal date.png',
   ];
+  final PageController _pageController = PageController(initialPage: 0);
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startAutoSlide();
+  }
+
+  void _startAutoSlide() {
+    _timer = Timer.periodic(Duration(seconds: 10), (Timer timer) {
+      if (_currentIndex < _images.length - 1) {
+        _currentIndex++;
+      } else {
+        _currentIndex = 0;
+      }
+
+      _pageController.animateToPage(
+        _currentIndex,
+        duration: Duration(milliseconds: 1000),
+        curve: Curves.easeIn,
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +55,7 @@ class _ImageSliderState extends State<ImageSlider> {
         Container(
           height: 160, // Set the desired height of the slider
           child: PageView.builder(
+            controller: _pageController,
             itemCount: _images.length,
             onPageChanged: (index) {
               setState(() {
@@ -51,6 +84,11 @@ class _ImageSliderState extends State<ImageSlider> {
             return GestureDetector(
               onTap: () => setState(() {
                 _currentIndex = entry.key;
+                _pageController.animateToPage(
+                  _currentIndex,
+                  duration: const Duration(milliseconds: 1000),
+                  curve: Curves.easeIn,
+                );
               }),
               child: Container(
                 width: 8.0,
