@@ -36,7 +36,9 @@ class SearchScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 15.0),
-                const SearchWidget(),
+                SearchWidget(
+                  hintText: "Search food, table or something",
+                ),
                 const SizedBox(height: 20),
                 const Text(
                   "Popular Search",
@@ -48,32 +50,35 @@ class SearchScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 // Wrap for popular searches with spacing
-                Wrap(
-                  spacing: 20, // Space between items
-                  runSpacing: 10, // Space between rows
-                  alignment: WrapAlignment
-                      .start, // Align items to the start of the row
-                  children: popularSearches.map((search) {
-                    return Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 16,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xffF3F1F1),
-                        borderRadius:
-                            BorderRadius.circular(20), // High border radius
-                      ),
-                      child: Text(
-                        search,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Wrap(
+                    spacing: 20, // Space between items
+                    runSpacing: 10, // Space between rows
+                    alignment: WrapAlignment
+                        .start, // Align items to the start of the row
+                    children: popularSearches.map((search) {
+                      return Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 16,
                         ),
-                      ),
-                    );
-                  }).toList(),
+                        decoration: BoxDecoration(
+                          color: const Color(0xffF3F1F1),
+                          borderRadius:
+                              BorderRadius.circular(20), // High border radius
+                        ),
+                        child: Text(
+                          search,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 ),
                 const SizedBox(
                   height: 20,

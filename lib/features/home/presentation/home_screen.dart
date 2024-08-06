@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:madang/features/cart/widget/cart_icon.dart';
 import 'package:madang/features/home/controller/home_controller.dart';
 import 'package:madang/features/recommendation/presentation/recommendation_section.dart';
 import 'package:madang/features/home/widget/icon_row.dart';
 import 'package:madang/features/home/widget/image_slider.dart';
 import 'package:madang/features/profile/controller/profile_controller.dart';
-import 'package:madang/routes/routes.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -116,12 +115,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed(Routes.cart);
-                          },
-                          child: SvgPicture.asset("assets/svgs/cart.svg"),
-                        ),
+                        CartIcon()
                       ],
                     ),
                     const SizedBox(height: 15.0),

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:madang/utils/theme/theme.dart';
+import 'package:madang/features/table/model/table_model.dart';
 
-class TableItem extends StatefulWidget {
+class TableItem extends StatelessWidget {
+  final TableModel table;
+  final VoidCallback onRemove;
+
   const TableItem({
-    super.key,
-  });
+    Key? key,
+    required this.table,
+    required this.onRemove,
+  }) : super(key: key);
 
-  @override
-  State<TableItem> createState() => _TableItemState();
-}
-
-class _TableItemState extends State<TableItem> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -21,39 +22,45 @@ class _TableItemState extends State<TableItem> {
             width: 80,
             height: 80,
             margin: const EdgeInsets.only(right: 10),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(
-                    'assets/images/food1.png'), // Replace with your image path or network image
+                image: NetworkImage(table.image ??
+                    'https://example.com/default.png'), // Replace with your image path or network image
               ),
             ),
           ),
           const SizedBox(
             width: 15,
           ),
-          // Name and Price Column
-          const Expanded(
+          // Name and Description Column
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  'Work Table',
-                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                  table.name!,
+                  style: const TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
-                  '1 table 1 chair',
-                  style: TextStyle(color: primaryColorDK, fontSize: 16),
+                  "${table.number} table ${table.capacity} chairs" ??
+                      'No description',
+                  style: const TextStyle(
+                    color: primaryColorDK,
+                    fontSize: 16,
+                  ),
                 ),
               ],
             ),
           ),
           IconButton(
             color: neutralGrey,
-            onPressed: () {
-              // Remove item logic
-            },
-            icon: const Icon(Icons.restore_from_trash),
+            onPressed: onRemove, // Trigger remove action
+            icon: const Icon(Icons.delete),
           ),
         ],
       ),

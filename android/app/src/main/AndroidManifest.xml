@@ -45,6 +45,24 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <application
+        android:theme="@style/LaunchTheme"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/LaunchTheme"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+
+
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
          https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.

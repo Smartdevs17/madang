@@ -103,7 +103,7 @@ class ProfileScreen extends StatelessWidget {
                       title: "My Cart",
                       onTap: () {
                         // Navigate to My Cart screen
-                        Get.toNamed(Routes.myCart);
+                        Get.toNamed(Routes.cart);
                       },
                     ),
                     ProfileOption(

@@ -1,11 +1,15 @@
 // table_details.dart
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:madang/features/cart/controller/cart_controller.dart';
 import 'package:madang/features/table/model/table_model.dart';
 import 'package:madang/features/table/presentation/addon_selection.dart';
 import 'package:madang/utils/action/action.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 Future<void> showTableDetails(BuildContext context, TableModel table) async {
+  final CartController _cartController = Get.find();
+
   List<String> times = [
     '30 minutes',
     '45 minutes',
@@ -214,10 +218,13 @@ Future<void> showTableDetails(BuildContext context, TableModel table) async {
                       ElevatedButton(
                         onPressed: () {
                           // Book table logic
-                          showSnackbar(
-                            message: 'Successfully booking table',
-                            error: false,
-                          );
+                          _cartController.addTableToCart(table);
+                          Get.snackbar('Added to Cart',
+                              '${table.name} has been added to your cart.');
+                          // showSnackbar(
+                          //   message: 'Successfully booking table',
+                          //   error: false,
+                          // );
                           Navigator.pop(context);
                         },
                         style: ElevatedButton.styleFrom(

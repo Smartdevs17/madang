@@ -44,6 +44,6 @@ var routes = [
   GetPage(name: Routes.giveRating, page: () => GiveRatingScreen()),
   GetPage(name: Routes.food, page: () => FoodScreen()),
   GetPage(name: Routes.table, page: () => TableScreen()),
-  GetPage(name: Routes.cart, page: () => const CartScreen()),
+  GetPage(name: Routes.cart, page: () => CartScreen()),
   GetPage(name: Routes.successOrder, page: () => const SuccessOrderScreen()),
 ];

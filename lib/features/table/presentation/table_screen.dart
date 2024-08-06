@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:madang/features/cart/widget/cart_icon.dart';
+import 'package:madang/features/search/widget/search_widget.dart';
 import 'package:madang/features/table/controller/table_controller.dart';
 import 'package:madang/features/table/model/table_model.dart';
 import 'package:madang/features/table/presentation/addon_selection.dart';
@@ -27,10 +29,10 @@ class _TableScreenState extends State<TableScreen> {
         iconTheme: const IconThemeData(color: primaryColorDK),
         elevation: 1.0,
         centerTitle: false,
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: Icon(Icons.shopping_cart),
+            padding: const EdgeInsets.only(right: 16, top: 16),
+            child: CartIcon(),
           )
         ],
       ),
@@ -38,22 +40,23 @@ class _TableScreenState extends State<TableScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Search table',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(
-                    color: neutralGrey,
-                    width: 1,
-                  ),
-                ),
-              ),
-            ),
+            // TextFormField(
+            //   decoration: InputDecoration(
+            //     hintText: 'Search table',
+            //     prefixIcon: const Icon(Icons.search),
+            //     border: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(8.0),
+            //     ),
+            //     focusedBorder: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(8),
+            //       borderSide: const BorderSide(
+            //         color: neutralGrey,
+            //         width: 1,
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            SearchWidget(hintText: "Search table"),
             const SizedBox(height: 10),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -108,7 +111,7 @@ class _TableScreenState extends State<TableScreen> {
                               table.image!,
                               height: 400,
                               width: double.infinity,
-                              fit: BoxFit.fill,
+                              fit: BoxFit.fitWidth,
                             ),
                           ),
                         ),

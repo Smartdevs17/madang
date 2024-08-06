@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:madang/features/cart/controller/cart_controller.dart';
 import 'package:madang/features/food/model/food_model.dart';
 import 'package:madang/utils/action/action.dart';
 import 'package:madang/utils/action/format_price.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 Future<void> showFoodDetails(BuildContext context, FoodModel food) async {
+  final CartController _cartController = Get.find();
+
   int quantity = 1;
 
   showModalBottomSheet(
     context: context,
-    isScrollControlled: true, // Allows the modal to be full screen if necessary
+    isScrollControlled: true,
     builder: (context) {
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
           return DraggableScrollableSheet(
-            initialChildSize: 0.6, // Initial height is 50% of the screen height
-            minChildSize: 0.5, // Minimum height is 25% of the screen height
-            maxChildSize: 0.7, // Maximum height is 90% of the screen height
-
+            initialChildSize: 0.6,
+            minChildSize: 0.5,
+            maxChildSize: 0.7,
             expand: false,
             builder: (BuildContext context, ScrollController scrollController) {
               return SingleChildScrollView(
@@ -56,9 +59,7 @@ Future<void> showFoodDetails(BuildContext context, FoodModel food) async {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    height: 5.0,
-                                  ),
+                                  const SizedBox(height: 5.0),
                                   Row(
                                     children: [
                                       const Icon(Icons.star,
@@ -68,14 +69,10 @@ Future<void> showFoodDetails(BuildContext context, FoodModel food) async {
                                         food.averageRating?.toString() ?? 'N/A',
                                         style: const TextStyle(fontSize: 16),
                                       ),
-                                      const SizedBox(
-                                        height: 5.0,
-                                      ),
+                                      const SizedBox(height: 5.0),
                                     ],
                                   ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
+                                  const SizedBox(height: 10),
                                   Text(
                                     formatPrice(food.price!),
                                     style: const TextStyle(
@@ -93,7 +90,6 @@ Future<void> showFoodDetails(BuildContext context, FoodModel food) async {
                                     children: [
                                       IconButton(
                                         onPressed: () {
-                                          // Decrease quantity logic
                                           setState(() {
                                             if (quantity > 1) {
                                               quantity--;
@@ -102,11 +98,10 @@ Future<void> showFoodDetails(BuildContext context, FoodModel food) async {
                                         },
                                         icon: const Icon(Icons.remove_circle),
                                       ),
-                                      Text('$quantity'), // Quantity text
+                                      Text('$quantity'),
                                       IconButton(
                                         color: mainColor,
                                         onPressed: () {
-                                          // Increase quantity logic
                                           setState(() {
                                             quantity++;
                                           });
@@ -122,11 +117,9 @@ Future<void> showFoodDetails(BuildContext context, FoodModel food) async {
                           const SizedBox(height: 20),
                           ElevatedButton(
                             onPressed: () {
-                              // Place order logic
-                              showSnackbar(
-                                message: 'Successfully placed order',
-                                error: false,
-                              );
+                              _cartController.addFoodToCart(food, quantity);
+                              Get.snackbar('Added to Cart',
+                                  '${food.name} has been added to your cart.');
                               Navigator.pop(context);
                             },
                             style: ElevatedButton.styleFrom(

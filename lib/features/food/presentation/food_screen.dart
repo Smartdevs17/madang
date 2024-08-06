@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:madang/features/cart/widget/cart_icon.dart';
 import 'package:madang/features/food/controller/food_controller.dart';
 import 'package:madang/features/food/model/food_model.dart';
 import 'package:madang/features/food/presentation/food_details.dart';
+import 'package:madang/features/search/widget/search_widget.dart';
 import 'package:madang/utils/action/action.dart';
 import 'package:madang/utils/action/format_price.dart';
 import 'package:madang/utils/theme/theme.dart';
@@ -33,10 +35,10 @@ class _FoodScreenState extends State<FoodScreen> {
         iconTheme: const IconThemeData(color: primaryColorDK),
         elevation: 1.0,
         centerTitle: false,
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: Icon(Icons.shopping_cart),
+            padding: const EdgeInsets.only(right: 16, top: 16),
+            child: CartIcon(),
           )
         ],
       ),
@@ -44,22 +46,23 @@ class _FoodScreenState extends State<FoodScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Search food',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(
-                    color: neutralGrey, // Change color to purple when focused
-                    width: 1,
-                  ),
-                ),
-              ),
-            ),
+            // TextFormField(
+            //   decoration: InputDecoration(
+            //     hintText: 'Search food',
+            //     prefixIcon: const Icon(Icons.search),
+            //     border: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(8.0),
+            //     ),
+            //     focusedBorder: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(8),
+            //       borderSide: const BorderSide(
+            //         color: neutralGrey, // Change color to purple when focused
+            //         width: 1,
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            SearchWidget(hintText: "Search Food"),
             const SizedBox(height: 10),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,

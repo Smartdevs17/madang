@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:madang/utils/theme/theme.dart';
 
+// ignore: must_be_immutable
 class SearchWidget extends StatelessWidget {
-  const SearchWidget({
-    Key? key,
-  }) : super(key: key);
+  final String hintText;
+  SearchWidget({Key? key, required this.hintText}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // var hintText = "Search food, table or something";
     return TextFormField(
       textInputAction: TextInputAction.search, // Use search action
       keyboardType: TextInputType.text,
@@ -19,14 +20,8 @@ class SearchWidget extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
         ), // Adjust padding as needed
-        prefixIcon: Padding(
-          padding: const EdgeInsets.only(
-              left: 8, right: 8), // Adjust padding as needed
-          child: SvgPicture.asset(
-            "assets/svgs/search1.svg",
-          ),
-        ),
-        hintText: "Search food, table or something",
+        prefixIcon: const Icon(Icons.search),
+        hintText: hintText,
         hintStyle: const TextStyle(
           color: neutralGrey,
           fontSize: 16,
@@ -48,6 +43,7 @@ class SearchWidget extends StatelessWidget {
           ),
         ),
       ),
+      cursorColor: mainColorDK,
     );
   }
 }
