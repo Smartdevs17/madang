@@ -3,12 +3,14 @@ import 'package:madang/common/model/api_response_model.dart';
 import 'package:madang/features/food/controller/food_controller.dart';
 import 'package:madang/features/home/repository/home_repository.dart';
 import 'package:madang/features/profile/controller/profile_controller.dart';
+import 'package:madang/features/recent/controller/order_controller.dart';
 import 'package:madang/features/table/controller/table_controller.dart';
 
 class HomeController extends GetxController {
   final ProfileController profileController = Get.find<ProfileController>();
   final FoodController foodController = Get.find<FoodController>();
   final TableController tableController = Get.find<TableController>();
+  final OrderController orderController = Get.find<OrderController>();
   var loading = false.obs;
   var error = false.obs;
   var errorMessage = ''.obs;
@@ -35,6 +37,7 @@ class HomeController extends GetxController {
         tableController.processRecommendedTablesToState(
           response.data['recommended_tables'],
         );
+        orderController.processDataToState(response.data['orders']);
       } else {
         errorMessage(response.message); // Handle error message from API
         error(true);

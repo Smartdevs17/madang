@@ -39,14 +39,14 @@ class CartScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SvgPicture.asset("assets/svgs/bag.svg"),
-                    SizedBox(
+                    const SizedBox(
                         height: 20), // Adjust space between the SVG and text
-                    Text(
+                    const Text(
                       "Well, there is no item in your \n cart :(",
                       style: TextStyle(fontSize: 24),
                       textAlign: TextAlign.center, // Center text
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     ElevatedButton(
@@ -310,13 +310,14 @@ class CartScreen extends StatelessWidget {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      // Place order logic
-                      showSnackbar(
-                        message: 'Successfully placed order',
-                        error: false,
-                      );
-                      cartController.clearCart();
-                      Navigator.pop(context);
+                      // // Place order logic
+                      // showSnackbar(
+                      //   message: 'Successfully placed order',
+                      //   error: false,
+                      // );
+                      // cartController.clearCart();
+                      // Navigator.pop(context);
+                      Get.toNamed(Routes.paymentMethod);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: mainColor,

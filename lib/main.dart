@@ -7,6 +7,7 @@ import 'package:madang/features/cart/controller/cart_controller.dart';
 import 'package:madang/features/food/controller/food_controller.dart';
 import 'package:madang/features/home/controller/home_controller.dart';
 import 'package:madang/features/profile/controller/profile_controller.dart';
+import 'package:madang/features/recent/controller/order_controller.dart';
 import 'package:madang/features/table/controller/table_controller.dart';
 import 'package:madang/routes/navigation.dart';
 import 'package:madang/routes/routes.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         Get.put(ProfileController());
         Get.put(FoodController());
         Get.put(TableController());
+        Get.put(OrderController());
         Get.put(HomeController());
       }),
     );

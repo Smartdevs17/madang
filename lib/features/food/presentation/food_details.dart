@@ -55,9 +55,11 @@ Future<void> showFoodDetails(BuildContext context, FoodModel food) async {
                                   Text(
                                     food.name ?? '',
                                     style: const TextStyle(
-                                      fontSize: 24,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold,
+                                      overflow: TextOverflow.visible,
                                     ),
+                                    maxLines: 2,
                                   ),
                                   const SizedBox(height: 5.0),
                                   Row(
@@ -76,7 +78,7 @@ Future<void> showFoodDetails(BuildContext context, FoodModel food) async {
                                   Text(
                                     formatPrice(food.price!),
                                     style: const TextStyle(
-                                      fontSize: 24,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),

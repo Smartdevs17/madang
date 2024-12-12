@@ -34,6 +34,8 @@ class _FoodItemState extends State<FoodItem> {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Row(
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           // Image
           Container(
@@ -54,29 +56,37 @@ class _FoodItemState extends State<FoodItem> {
           ),
           // Name and Price Column
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  widget.food.name!,
-                  style: const TextStyle(
-                    fontSize: 21,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  formatPrice(widget.food.price!),
-                  style: const TextStyle(
-                    color: primaryColorDK,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                double fontSize = constraints.maxWidth > 300
+                    ? 21
+                    : 16; // Adjust font size based on width
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      widget.food.name!,
+                      style: TextStyle(
+                        fontSize: fontSize,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      formatPrice(widget.food.price!),
+                      style: const TextStyle(
+                        color: primaryColorDK,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
+
           // Quantity and Trash Icon
           Row(
             children: [
@@ -103,6 +113,7 @@ class _FoodItemState extends State<FoodItem> {
                 },
                 icon: const Icon(Icons.add_circle),
               ),
+
               IconButton(
                 color: neutralGrey,
                 onPressed: widget.onRemove, // Trigger remove action

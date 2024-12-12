@@ -115,54 +115,69 @@ class _FoodScreenState extends State<FoodScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(8.0)),
-                                child: Image.network(
-                                  food.image ?? 'assets/images/Intersect.png',
-                                  height: 120,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      food.name ?? '',
-                                      style: const TextStyle(fontSize: 16),
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.vertical(
+                                        top: Radius.circular(8.0)),
+                                    child: Image.network(
+                                      food.image ??
+                                          'assets/images/Intersect.png',
+                                      height: constraints.maxHeight * 0.5,
+                                      width: double.infinity,
+                                      fit: BoxFit.cover,
                                     ),
-                                    Row(
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        const Icon(Icons.star,
-                                            color: Colors.amber, size: 16),
-                                        const SizedBox(width: 4),
+                                        Flexible(
+                                          child: Text(
+                                            food.name ?? '',
+                                            style:
+                                                const TextStyle(fontSize: 16),
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Row(
+                                          children: [
+                                            const Icon(Icons.star,
+                                                color: Colors.amber, size: 16),
+                                            const SizedBox(width: 4),
+                                            Text(
+                                              food.averageRating?.toString() ??
+                                                  'N/A',
+                                              style:
+                                                  const TextStyle(fontSize: 14),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
                                         Text(
-                                          food.averageRating?.toString() ??
-                                              'N/A',
-                                          style: const TextStyle(fontSize: 14),
+                                          formatPrice(food.price!),
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      formatPrice(food.price!),
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                         ),
                       );
