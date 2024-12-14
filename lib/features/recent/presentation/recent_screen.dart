@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:madang/features/recent/controller/order_controller.dart';
 import 'package:madang/features/recent/presentation/order_list.dart';
-import 'package:madang/routes/bottom_nav_bar.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 class RecentScreen extends StatefulWidget {
+  const RecentScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _RecentScreenState createState() => _RecentScreenState();
 }
 
 class _RecentScreenState extends State<RecentScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  final OrderController _orderController = Get.find<OrderController>();
 
   @override
   void initState() {

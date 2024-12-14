@@ -82,6 +82,7 @@ class ApiService {
   }) async {
     final String token = Get.find<TokenController>().token.value;
     log(token);
+
     try {
       final http.Response response = await http.post(
         Uri.parse('${Constants.baseUrl}/$path'),
@@ -92,9 +93,12 @@ class ApiService {
           'Authorization': 'Bearer $token',
         },
       );
+      print("Response status: ${response.statusCode}");
+      print("Response body: ${response.body}");
       log(response.body);
       return ApiResponseModel.fromMap(jsonDecode(response.body));
     } catch (e) {
+      log(e.toString());
       showSnackbar(
         title: 'OOPS!',
         message: 'An error occurred, please try again!',

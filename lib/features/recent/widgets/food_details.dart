@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:madang/utils/action/format_price.dart';
 import 'package:madang/utils/theme/theme.dart';
 import 'package:madang/features/food/model/food_model.dart';
+import 'package:madang/features/recent/model/order_model.dart';
 
-class FoodItem extends StatefulWidget {
-  final FoodModel food;
+class FoodDetails extends StatefulWidget {
+  final FoodOrder food;
   final int quantity;
   final Function(int) onQuantityChanged;
   final VoidCallback onRemove; // Callback for removal
   final bool isReadOnly;
 
-  const FoodItem({
+  const FoodDetails({
     Key? key,
     required this.food,
     required this.quantity,
@@ -20,10 +21,10 @@ class FoodItem extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<FoodItem> createState() => _FoodItemState();
+  State<FoodDetails> createState() => _FoodDetailsState();
 }
 
-class _FoodItemState extends State<FoodItem> {
+class _FoodDetailsState extends State<FoodDetails> {
   late int _quantity;
 
   @override
@@ -35,10 +36,10 @@ class _FoodItemState extends State<FoodItem> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      child: Row(
-        // crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
+        child: Row(
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
           // Image
           Container(
             width: 80,
@@ -48,7 +49,7 @@ class _FoodItemState extends State<FoodItem> {
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(widget.food.image ??
+                image: NetworkImage(widget.food.food?.image ??
                     'https://example.com/default.png'), // Replace with your image path or network image
               ),
             ),
@@ -67,7 +68,7 @@ class _FoodItemState extends State<FoodItem> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      widget.food.name!,
+                      widget.food.food?.name ?? '',
                       style: TextStyle(
                         fontSize: fontSize,
                         fontWeight: FontWeight.bold,
@@ -77,7 +78,7 @@ class _FoodItemState extends State<FoodItem> {
                       height: 10,
                     ),
                     Text(
-                      formatPrice(widget.food.price!),
+                      formatPrice(widget.food.food?.price ?? 0),
                       style: const TextStyle(
                         color: primaryColorDK,
                         fontSize: 16,
@@ -90,42 +91,7 @@ class _FoodItemState extends State<FoodItem> {
           ),
 
           // Quantity and Trash Icon
-          if (!widget.isReadOnly)
-            Row(
-              children: [
-                IconButton(
-                  color: mainColor,
-                  onPressed: () {
-                    if (_quantity > 1) {
-                      setState(() {
-                        _quantity--;
-                      });
-                      widget.onQuantityChanged(_quantity);
-                    }
-                  },
-                  icon: const Icon(Icons.remove_circle),
-                ),
-                Text('$_quantity'), // Quantity text
-                IconButton(
-                  color: mainColor,
-                  onPressed: () {
-                    setState(() {
-                      _quantity++;
-                    });
-                    widget.onQuantityChanged(_quantity);
-                  },
-                  icon: const Icon(Icons.add_circle),
-                ),
-
-                IconButton(
-                  color: neutralGrey,
-                  onPressed: widget.onRemove, // Trigger remove action
-                  icon: const Icon(Icons.delete),
-                ),
-              ],
-            ),
-        ],
-      ),
-    );
+          Text('$_quantity'), // Quantity text
+        ]));
   }
 }

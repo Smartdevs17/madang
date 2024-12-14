@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:madang/features/cart/controller/cart_controller.dart';
 import 'package:madang/features/food/presentation/food_item.dart';
+import 'package:madang/features/profile/controller/profile_controller.dart';
 import 'package:madang/features/table/presentation/table_item.dart';
 import 'package:madang/routes/routes.dart';
-import 'package:madang/utils/action/action.dart';
 import 'package:madang/utils/action/format_price.dart';
+import 'package:madang/utils/constants/constants.dart';
 import 'package:madang/utils/theme/theme.dart';
 
 class CartScreen extends StatelessWidget {
   final CartController cartController = Get.put(CartController());
+  final ProfileController _profileController = Get.find();
 
   CartScreen({super.key});
 
@@ -317,7 +320,32 @@ class CartScreen extends StatelessWidget {
                       // );
                       // cartController.clearCart();
                       // Navigator.pop(context);
-                      Get.toNamed(Routes.paymentMethod);
+                      // Get.toNamed(Routes.paymentMethod);
+                      int user_id = _profileController.userProfile.id;
+
+                      Map<String, dynamic> body = {
+                        'user_id': user_id,
+                        'restaurant_id': 4,
+                        'total_price': cartController.totalPrice,
+                        'foods': cartController.cartItems
+                            .where((item) => item.food != null)
+                            .map((item) => {
+                                  'id': item.food!.id,
+                                  'quantity': item.quantity,
+                                })
+                            .toList(),
+                        'tables': cartController.cartItems
+                            .where((item) => item.table != null)
+                            .map((item) => {
+                                  'table_id': item.table!.id,
+                                })
+                            .toList(),
+                        'special_notes': 'Please make one dish extra spicy.',
+                        'status': 'pending',
+                      };
+
+                      print("===================>>>>>>>>>>$body");
+                      cartController.placeOrder(body);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: mainColor,

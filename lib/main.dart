@@ -41,11 +41,11 @@ class MyApp extends StatelessWidget {
           : Routes.auth,
       getPages: routes,
       initialBinding: BindingsBuilder(() {
-        Get.put(CartController());
         Get.put(ProfileController());
         Get.put(FoodController());
         Get.put(TableController());
         Get.put(OrderController());
+        Get.put(CartController());
         Get.put(HomeController());
       }),
     );

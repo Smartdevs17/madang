@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final orderModel = orderModelFromMap(jsonString);
+
 import 'dart:convert';
 
 OrderModel orderModelFromMap(String str) =>
@@ -11,6 +15,7 @@ class OrderModel {
   int? restaurantId;
   int? tableId;
   List<FoodOrder>? foodOrders;
+  List<TableOrder>? tableOrders;
   List<dynamic>? addonOrders;
   double? totalPrice;
   String? status;
@@ -24,6 +29,7 @@ class OrderModel {
     this.restaurantId,
     this.tableId,
     this.foodOrders,
+    this.tableOrders,
     this.addonOrders,
     this.totalPrice,
     this.status,
@@ -38,6 +44,7 @@ class OrderModel {
     int? restaurantId,
     int? tableId,
     List<FoodOrder>? foodOrders,
+    List<TableOrder>? tableOrders,
     List<dynamic>? addonOrders,
     double? totalPrice,
     String? status,
@@ -51,6 +58,7 @@ class OrderModel {
         restaurantId: restaurantId ?? this.restaurantId,
         tableId: tableId ?? this.tableId,
         foodOrders: foodOrders ?? this.foodOrders,
+        tableOrders: tableOrders ?? this.tableOrders,
         addonOrders: addonOrders ?? this.addonOrders,
         totalPrice: totalPrice ?? this.totalPrice,
         status: status ?? this.status,
@@ -68,6 +76,10 @@ class OrderModel {
             ? []
             : List<FoodOrder>.from(
                 json["food_orders"]!.map((x) => FoodOrder.fromMap(x))),
+        tableOrders: json["table_orders"] == null
+            ? []
+            : List<TableOrder>.from(
+                json["table_orders"]!.map((x) => TableOrder.fromMap(x))),
         addonOrders: json["addon_orders"] == null
             ? []
             : List<dynamic>.from(json["addon_orders"]!.map((x) => x)),
@@ -90,6 +102,9 @@ class OrderModel {
         "food_orders": foodOrders == null
             ? []
             : List<dynamic>.from(foodOrders!.map((x) => x.toMap())),
+        "table_orders": tableOrders == null
+            ? []
+            : List<dynamic>.from(tableOrders!.map((x) => x.toMap())),
         "addon_orders": addonOrders == null
             ? []
             : List<dynamic>.from(addonOrders!.map((x) => x)),
@@ -160,6 +175,9 @@ class Food {
   int? averageRating;
   DateTime? createdAt;
   DateTime? updatedAt;
+  int? number;
+  int? capacity;
+  dynamic addons;
 
   Food({
     this.id,
@@ -173,6 +191,9 @@ class Food {
     this.averageRating,
     this.createdAt,
     this.updatedAt,
+    this.number,
+    this.capacity,
+    this.addons,
   });
 
   Food copyWith({
@@ -187,6 +208,9 @@ class Food {
     int? averageRating,
     DateTime? createdAt,
     DateTime? updatedAt,
+    int? number,
+    int? capacity,
+    dynamic addons,
   }) =>
       Food(
         id: id ?? this.id,
@@ -200,6 +224,9 @@ class Food {
         averageRating: averageRating ?? this.averageRating,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
+        number: number ?? this.number,
+        capacity: capacity ?? this.capacity,
+        addons: addons ?? this.addons,
       );
 
   factory Food.fromMap(Map<String, dynamic> json) => Food(
@@ -218,6 +245,9 @@ class Food {
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
+        number: json["number"],
+        capacity: json["capacity"],
+        addons: json["addons"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -232,5 +262,49 @@ class Food {
         "average_rating": averageRating,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+        "number": number,
+        "capacity": capacity,
+        "addons": addons,
+      };
+}
+
+class TableOrder {
+  int? id;
+  int? orderId;
+  int? tableId;
+  Food? table;
+
+  TableOrder({
+    this.id,
+    this.orderId,
+    this.tableId,
+    this.table,
+  });
+
+  TableOrder copyWith({
+    int? id,
+    int? orderId,
+    int? tableId,
+    Food? table,
+  }) =>
+      TableOrder(
+        id: id ?? this.id,
+        orderId: orderId ?? this.orderId,
+        tableId: tableId ?? this.tableId,
+        table: table ?? this.table,
+      );
+
+  factory TableOrder.fromMap(Map<String, dynamic> json) => TableOrder(
+        id: json["id"],
+        orderId: json["order_id"],
+        tableId: json["table_id"],
+        table: json["table"] == null ? null : Food.fromMap(json["table"]),
+      );
+
+  Map<String, dynamic> toMap() => {
+        "id": id,
+        "order_id": orderId,
+        "table_id": tableId,
+        "table": table?.toMap(),
       };
 }

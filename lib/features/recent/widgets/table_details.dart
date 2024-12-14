@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:madang/features/recent/model/order_model.dart';
 import 'package:madang/utils/theme/theme.dart';
-import 'package:madang/features/table/model/table_model.dart';
 
-class TableItem extends StatelessWidget {
-  final TableModel table;
+class TableDetails extends StatelessWidget {
+  final TableOrder table;
   final VoidCallback onRemove;
-  final bool isReadOnly;
 
-  const TableItem({
+  const TableDetails({
     Key? key,
     required this.table,
     required this.onRemove,
-    this.isReadOnly = false,
   }) : super(key: key);
 
   @override
@@ -28,7 +26,7 @@ class TableItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: NetworkImage(table.image ??
+                image: NetworkImage(table.table?.image ??
                     'https://example.com/default.png'), // Replace with your image path or network image
               ),
             ),
@@ -42,14 +40,14 @@ class TableItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  table.name!,
+                  table.table?.name ?? '',
                   style: const TextStyle(
                     fontSize: 21,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  "${table.number} table ${table.capacity} chairs",
+                  "${table.table?.number} table ${table.table?.capacity} chairs",
                   style: const TextStyle(
                     color: primaryColorDK,
                     fontSize: 16,
@@ -58,12 +56,6 @@ class TableItem extends StatelessWidget {
               ],
             ),
           ),
-          if (!isReadOnly)
-            IconButton(
-              color: neutralGrey,
-              onPressed: onRemove, // Trigger remove action
-              icon: const Icon(Icons.delete),
-            ),
         ],
       ),
     );

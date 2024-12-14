@@ -1,22 +1,19 @@
 import 'package:get/get.dart';
+import 'package:madang/common/model/api_response_model.dart';
 import 'package:madang/features/cart/model/cart_model.dart';
+import 'package:madang/features/cart/repository/cart_repository.dart';
 import 'package:madang/features/food/model/food_model.dart';
+import 'package:madang/features/recent/controller/order_controller.dart';
+import 'package:madang/features/recent/model/order_model.dart';
 import 'package:madang/features/table/model/table_model.dart';
+import 'package:madang/routes/routes.dart';
 import 'package:madang/utils/action/action.dart';
 
 class CartController extends GetxController {
+  final OrderController _orderController = Get.find<OrderController>();
+  RxBool loading = RxBool(false);
+  RxBool error = RxBool(false);
   var cartItems = <CartItem>[].obs;
-
-  // void addFoodToCart(FoodModel food) {
-  //   var existingItemIndex =
-  //       cartItems.indexWhere((item) => item.food?.id == food.id);
-  //   if (existingItemIndex != -1) {
-  //     cartItems[existingItemIndex].quantity++;
-  //   } else {
-  //     cartItems.add(CartItem(food: food));
-  //   }
-  //   update();
-  // }
 
   void addFoodToCart(FoodModel food, int quantity) {
     var existingItemIndex =
@@ -113,6 +110,32 @@ class CartController extends GetxController {
 
   void clearCart() {
     cartItems.clear();
+  }
+
+  // Create Order Controller (Create a new Order to Remote Data Source)
+  Future<void> placeOrder(Map<String, dynamic> body) async {
+    loading(true);
+    error(false);
+    update();
+    try {
+      final ApiResponseModel response = await CartRepository.placeOrder(body);
+      if (response.success) {
+        showSnackbar(
+            title: 'Success!', message: response.message, error: false);
+        _orderController.orders.add(OrderModel.fromMap(response.data));
+        clearCart();
+        Get.toNamed(Routes.paymentMethod);
+      } else {
+        showSnackbar(title: 'OOPS!', message: response.message, error: true);
+        error(true);
+      }
+    } catch (e) {
+      showSnackbar(title: 'OOPS!', message: e.toString(), error: true);
+      error(true);
+    } finally {
+      loading(false);
+      update();
+    }
   }
 
   @override

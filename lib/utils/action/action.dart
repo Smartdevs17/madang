@@ -11,23 +11,14 @@ void showSnackbar({String? message, String? title, bool error = false}) {
       messageText: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            "$message",
-            style: const TextStyle(fontSize: 18, color: primaryColorLT),
+          Flexible(
+            child: Text(
+              "$message",
+              style: const TextStyle(fontSize: 18, color: primaryColorLT),
+              overflow:
+                  TextOverflow.ellipsis, // Optional: truncates if too long
+            ),
           ),
-          // if (!error)
-          //   InkWell(
-          //     onTap: () {
-          //       Get.toNamed(Routes.cart);
-          //     },
-          //     child: const Chip(
-          //       label: Text(
-          //         'Cart',
-          //         style: TextStyle(color: mainColor),
-          //       ),
-          //       backgroundColor: primaryColorLT,
-          //     ),
-          //   ),
         ],
       ),
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
