@@ -11,11 +11,18 @@ import 'package:madang/utils/action/format_price.dart';
 import 'package:madang/utils/constants/constants.dart';
 import 'package:madang/utils/theme/theme.dart';
 
-class CartScreen extends StatelessWidget {
-  final CartController cartController = Get.put(CartController());
-  final ProfileController _profileController = Get.find();
-
+class CartScreen extends StatefulWidget {
   CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  final CartController cartController = Get.put(CartController());
+
+  final ProfileController _profileController = Get.find();
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -312,19 +319,11 @@ class CartScreen extends StatelessWidget {
                   }),
                   const SizedBox(height: 10),
                   ElevatedButton(
-                    onPressed: () {
-                      // // Place order logic
-                      // showSnackbar(
-                      //   message: 'Successfully placed order',
-                      //   error: false,
-                      // );
-                      // cartController.clearCart();
-                      // Navigator.pop(context);
-                      // Get.toNamed(Routes.paymentMethod);
-                      int user_id = _profileController.userProfile.id;
+                    onPressed: () async {
+                      int userId = _profileController.userProfile.id;
 
                       Map<String, dynamic> body = {
-                        'user_id': user_id,
+                        'user_id': userId,
                         'restaurant_id': 4,
                         'total_price': cartController.totalPrice,
                         'foods': cartController.cartItems
@@ -343,18 +342,32 @@ class CartScreen extends StatelessWidget {
                         'special_notes': 'Please make one dish extra spicy.',
                         'status': 'pending',
                       };
+                      setState(() {
+                        _isLoading = true;
+                      });
 
-                      print("===================>>>>>>>>>>$body");
-                      cartController.placeOrder(body);
+                      await cartController.placeOrder(body);
+                      setState(() {
+                        _isLoading = false;
+                      });
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: mainColor,
                       minimumSize: const Size(double.infinity, 50),
                     ),
-                    child: const Text(
-                      'Continue',
-                      style: TextStyle(fontSize: 18, color: primaryColorLT),
-                    ),
+                    child: _isLoading
+                        ? const SizedBox(
+                            width: 24.0,
+                            height: 24.0,
+                            child: CircularProgressIndicator(
+                              color: primaryColorLT,
+                            ),
+                          )
+                        : const Text(
+                            'Continue',
+                            style:
+                                TextStyle(fontSize: 18, color: primaryColorLT),
+                          ),
                   ),
                 ],
               ),

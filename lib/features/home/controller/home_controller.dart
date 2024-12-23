@@ -56,6 +56,21 @@ class HomeController extends GetxController {
     }
   }
 
+  void searchItems(String query) {
+    if (query.isEmpty) {
+      foodController.foods.value = List.from(foodController.allFoods);
+      tableController.tables.value = List.from(tableController.allTables);
+    } else {
+      foodController.foods.value = foodController.allFoods.where((food) {
+        return food.name!.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+
+      tableController.tables.value = tableController.allTables.where((table) {
+        return table.name!.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+    }
+  }
+
   @override
   void onInit() {
     super.onInit();

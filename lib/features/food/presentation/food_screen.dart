@@ -46,29 +46,17 @@ class _FoodScreenState extends State<FoodScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // TextFormField(
-            //   decoration: InputDecoration(
-            //     hintText: 'Search food',
-            //     prefixIcon: const Icon(Icons.search),
-            //     border: OutlineInputBorder(
-            //       borderRadius: BorderRadius.circular(8.0),
-            //     ),
-            //     focusedBorder: OutlineInputBorder(
-            //       borderRadius: BorderRadius.circular(8),
-            //       borderSide: const BorderSide(
-            //         color: neutralGrey, // Change color to purple when focused
-            //         width: 1,
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            SearchWidget(hintText: "Search Food"),
+            SearchWidget(
+              hintText: "Search Food",
+              onSearchChanged: (query) {
+                foodController.searchItems(query);
+              },
+            ),
             const SizedBox(height: 10),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Obx(() {
                 if (!foodController.loading.value) {
-                  // If loading is complete, build the Wrap widget
                   if (foodController.foodCategories.isNotEmpty) {
                     return Wrap(
                       spacing: 8.0,
@@ -84,7 +72,6 @@ class _FoodScreenState extends State<FoodScreen> {
                     return Container();
                   }
                 } else {
-                  // While loading, you might want to show a loading indicator
                   return Container();
                 }
               }),

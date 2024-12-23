@@ -57,48 +57,65 @@ class OrderListView extends StatelessWidget {
               b.createdAt!.compareTo(a.createdAt!)); // Sort by most recent
 
         return ListView.builder(
-            itemCount: filteredOrders.length,
-            itemBuilder: (context, index) {
-              final order = filteredOrders[index];
-              final firstFood = order.foodOrders?.firstOrNull?.food;
+          itemCount: filteredOrders.length,
+          itemBuilder: (context, index) {
+            final order = filteredOrders[index];
+            final firstFood = order.foodOrders?.firstOrNull?.food;
+            final firstTable = order.tableOrders?.firstOrNull?.table;
 
-              return GestureDetector(
-                onTap: () {
-                  Get.to(() => OrderDetailScreen(order: order));
-                },
-                child: ListTile(
-                  leading: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                        10.0), // Adjust the radius as needed
+            // Select the appropriate image and title based on order type
+            final displayImage =
+                firstFood?.image ?? firstTable?.image ?? 'default_image_path';
+            final displayTitle = (order.foodOrders?.length ?? 0) > 1
+                ? "Multiple Items"
+                : (firstFood?.name ?? firstTable?.name ?? "Unknown");
+
+            return GestureDetector(
+              onTap: () {
+                Get.to(() => OrderDetailScreen(order: order));
+              },
+              child: ListTile(
+                leading: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: SizedBox(
+                    width: 60, // Set the desired width
+                    height: 60, // Set the desired height
                     child: Image.network(
-                      firstFood?.image ?? 'default_image_path',
-                      fit: BoxFit.cover, // Adjust the fit as needed
-                    ),
-                  ),
-                  title: Text(
-                    order.foodOrders!.length > 1
-                        ? "Multiple Items"
-                        : (firstFood?.name ?? "Unknown "),
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                  subtitle: Text(
-                    '${order.createdAt?.toLocal().day} ${_getMonthName(order.createdAt?.toLocal().month)} ${order.createdAt?.toLocal().year} ${_formatTime(order.createdAt)} · ${(order.foodOrders?.length ?? 0) + (order.tableOrders?.length ?? 0) ?? 0} items',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  trailing: Text(
-                    order.status ?? 'Unknown',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: order.status == 'Process'
-                          ? mainColor
-                          : (order.status == 'completed'
-                              ? mainColor
-                              : Colors.red),
+                      displayImage,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        // Handle image loading errors gracefully
+                        return Image.network(
+                          'https://img.freepik.com/premium-photo/restaurant-marketing-empty-menu-frame-wooden-table-concept-menu-design-wooden-table-setting-restaurant-promotion-visual-marketing-empty-menu-placeholder_864588-60482.jpg?w=1800',
+                          fit: BoxFit.cover,
+                        );
+                      },
                     ),
                   ),
                 ),
-              );
-            });
+                title: Text(
+                  displayTitle,
+                  style: const TextStyle(fontSize: 20),
+                ),
+                subtitle: Text(
+                  '${order.createdAt?.toLocal().day} ${_getMonthName(order.createdAt?.toLocal().month)} ${order.createdAt?.toLocal().year} ${_formatTime(order.createdAt)} · ${(order.foodOrders?.length ?? 0) + (order.tableOrders?.length ?? 0)} items',
+                  style: const TextStyle(fontSize: 16),
+                ),
+                trailing: Text(
+                  order.status ?? 'Unknown',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: order.status == 'Process'
+                        ? mainColor
+                        : (order.status == 'completed'
+                            ? mainColor
+                            : Colors.red),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
       },
     );
   }

@@ -23,8 +23,8 @@ class RecommendationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 150,
-      margin: const EdgeInsets.only(
-          bottom: 16), // Adjust vertical spacing between items
+      // margin: const EdgeInsets.only(
+      //     bottom: 16), // Adjust vertical spacing between items
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
@@ -97,18 +97,18 @@ class RecommendationItem extends StatelessWidget {
                 const SizedBox(
                   height: 4,
                 ),
-                Text(
-                  details,
-                  maxLines: 1,
-                  style: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12,
-                    overflow: TextOverflow.clip,
-                  ),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
+                // Text(
+                //   details,
+                //   maxLines: 1,
+                //   style: const TextStyle(
+                //     color: Colors.grey,
+                //     fontSize: 12,
+                //     overflow: TextOverflow.clip,
+                //   ),
+                // ),
+                // const SizedBox(
+                //   height: 4,
+                // ),
                 Text(
                   formatPrice(price),
                   style: const TextStyle(

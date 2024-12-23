@@ -56,7 +56,12 @@ class _TableScreenState extends State<TableScreen> {
             //     ),
             //   ),
             // ),
-            SearchWidget(hintText: "Search table"),
+            SearchWidget(
+              hintText: "Search table",
+              onSearchChanged: (query) {
+                tableController.searchItems(query);
+              },
+            ),
             const SizedBox(height: 10),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -85,64 +90,77 @@ class _TableScreenState extends State<TableScreen> {
             ),
             const SizedBox(height: 10),
             Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  childAspectRatio: 2.5,
-                  crossAxisSpacing: 8.0,
-                  mainAxisSpacing: 8.0,
-                ),
-                itemCount: tableController.tables.length,
-                itemBuilder: (context, index) {
-                  final table = tableController.tables[index];
-                  return GestureDetector(
-                    onTap: () => showTableDetails(context, table),
-                    child: Stack(
-                      children: [
-                        Card(
-                          color: primaryColorLT,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                          child: ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8.0)),
-                            child: Image.network(
-                              table.image!,
-                              height: 400,
-                              width: double.infinity,
-                              fit: BoxFit.fitWidth,
-                            ),
-                          ),
+              child: Obx(
+                () {
+                  if (tableController.loading.value) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (tableController.error.value) {
+                    return Center(
+                        child: Text(tableController.errorMessage.value));
+                  } else {
+                    return GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1,
+                          childAspectRatio: 2.5,
+                          crossAxisSpacing: 8.0,
+                          mainAxisSpacing: 8.0,
                         ),
-                        Positioned(
-                          bottom: 8,
-                          left: 8,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                        itemCount: tableController.tables.length,
+                        itemBuilder: (context, index) {
+                          final table = tableController.tables[index];
+                          return GestureDetector(
+                            onTap: () => showTableDetails(context, table),
+                            child: Stack(
                               children: [
-                                Text(
-                                  table.name!,
-                                  style: const TextStyle(
-                                      fontSize: 24, color: primaryColorLT),
+                                Card(
+                                  color: primaryColorLT,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(8.0)),
+                                    child: Image.network(
+                                      table.image!,
+                                      height: 400,
+                                      width: double.infinity,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                  ),
                                 ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  "${table.name} table ${table.capacity} chairs",
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    color: primaryColorLT,
+                                Positioned(
+                                  bottom: 8,
+                                  left: 8,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          table.name!,
+                                          style: const TextStyle(
+                                              fontSize: 24,
+                                              color: primaryColorLT),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          "${table.name} table ${table.capacity} chairs",
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: primaryColorLT,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+                          );
+                        });
+                  }
                 },
               ),
             ),

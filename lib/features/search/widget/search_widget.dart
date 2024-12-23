@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:madang/utils/theme/theme.dart';
 
-// ignore: must_be_immutable
 class SearchWidget extends StatelessWidget {
   final String hintText;
-  SearchWidget({Key? key, required this.hintText}) : super(key: key);
+  final Function(String) onSearchChanged;
+
+  SearchWidget({
+    Key? key,
+    required this.hintText,
+    required this.onSearchChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // var hintText = "Search food, table or something";
     return TextFormField(
-      textInputAction: TextInputAction.search, // Use search action
+      textInputAction: TextInputAction.done,
       keyboardType: TextInputType.text,
-      textAlign: TextAlign.start, // Align text to start (left)
+      textAlign: TextAlign.start,
       style: const TextStyle(color: primaryColorDK),
-      // onFieldSubmitted: onSearchChanged, // Callback when search is submitted
+      onChanged: onSearchChanged, // Callback as the user types
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-        ), // Adjust padding as needed
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
         prefixIcon: const Icon(Icons.search),
         hintText: hintText,
         hintStyle: const TextStyle(
@@ -31,16 +32,11 @@ class SearchWidget extends StatelessWidget {
         fillColor: primaryColorLT,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: neutralGrey, // Outline border color
-          ),
+          borderSide: const BorderSide(color: neutralGrey),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: neutralGrey, // Change color to purple when focused
-            width: 1,
-          ),
+          borderSide: const BorderSide(color: neutralGrey, width: 1),
         ),
       ),
       cursorColor: mainColorDK,

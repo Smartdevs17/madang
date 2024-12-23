@@ -113,7 +113,7 @@ class CartController extends GetxController {
   }
 
   // Create Order Controller (Create a new Order to Remote Data Source)
-  Future<void> placeOrder(Map<String, dynamic> body) async {
+  Future<bool> placeOrder(Map<String, dynamic> body) async {
     loading(true);
     error(false);
     update();
@@ -125,13 +125,16 @@ class CartController extends GetxController {
         _orderController.orders.add(OrderModel.fromMap(response.data));
         clearCart();
         Get.toNamed(Routes.paymentMethod);
+        return true;
       } else {
         showSnackbar(title: 'OOPS!', message: response.message, error: true);
         error(true);
+        return false;
       }
     } catch (e) {
       showSnackbar(title: 'OOPS!', message: e.toString(), error: true);
       error(true);
+      return false;
     } finally {
       loading(false);
       update();
