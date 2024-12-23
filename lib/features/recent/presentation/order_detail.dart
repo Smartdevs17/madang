@@ -12,6 +12,7 @@ class OrderDetailScreen extends StatelessWidget {
   final OrderModel order;
 
   const OrderDetailScreen({super.key, required this.order});
+
   bool _isCurrentMonth(DateTime? date) {
     if (date == null) return false;
     final now = DateTime.now();
@@ -80,43 +81,48 @@ class OrderDetailScreen extends StatelessWidget {
               const SizedBox(height: 16),
               _buildSectionHeader("Foods"),
               const SizedBox(height: 8),
-              ...?order.foodOrders?.map((food) => Column(
-                    children: [
-                      FoodDetails(
-                        food: food,
-                        quantity: food.quantity ?? 0,
-                        isReadOnly: true,
-                        onQuantityChanged: (quantity) {},
-                        onRemove: () {},
-                      ),
-                      const SizedBox(height: 16),
-                    ],
-                  )),
+              // Check for null or empty food orders
+              if (order.foodOrders?.isNotEmpty ?? false)
+                ...order.foodOrders!.map((food) => Column(
+                      children: [
+                        FoodDetails(
+                          food: food,
+                          quantity: food.quantity ?? 0,
+                          isReadOnly: true,
+                          onQuantityChanged: (quantity) {},
+                          onRemove: () {},
+                        ),
+                        const SizedBox(height: 16),
+                      ],
+                    )),
               const SizedBox(height: 16),
               _buildSectionHeader("Tables"),
               const SizedBox(height: 8),
-              ...?order.tableOrders?.map((table) => TableDetails(
-                    table: table,
-                    onRemove: () {},
-                  )),
+              // Check for null or empty table orders
+              if (order.tableOrders?.isNotEmpty ?? false)
+                ...order.tableOrders!.map((table) => TableDetails(
+                      table: table,
+                      onRemove: () {},
+                    )),
               const SizedBox(height: 16),
               _buildSectionHeader("Summary"),
               const SizedBox(height: 8),
+              // Summary Rows
               _buildSummaryRow(
                   "Food Total",
-                  order.foodOrders
-                          ?.map((food) =>
+                  order.foodOrders?.isNotEmpty ?? false
+                      ? order.foodOrders!
+                          .map((food) =>
                               (food.food?.price ?? 0) * (food.quantity ?? 1))
-                          .reduce((a, b) => a + b) ??
-                      0),
+                          .reduce((a, b) => a + b)
+                      : 0),
               _buildSummaryRow(
                 "Table Total",
-                (order.tableOrders?.isNotEmpty ??
-                        false) // Check if the list is not null and not empty
+                (order.tableOrders?.isNotEmpty ?? false)
                     ? order.tableOrders!
                         .map((table) => table.table?.price ?? 0)
                         .reduce((a, b) => a + b)
-                    : 0, // Default to 0 if the list is empty
+                    : 0,
               ),
               const SizedBox(height: 10),
               Text(

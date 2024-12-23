@@ -23,8 +23,6 @@ class RecommendationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 150,
-      // margin: const EdgeInsets.only(
-      //     bottom: 16), // Adjust vertical spacing between items
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
@@ -40,6 +38,7 @@ class RecommendationItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Image section
           Stack(
             children: [
               ClipRRect(
@@ -49,7 +48,7 @@ class RecommendationItem extends StatelessWidget {
                   image,
                   fit: BoxFit.cover,
                   width: double.infinity,
-                  height: 170,
+                  height: 150, // Adjusted height
                 ),
               ),
               Positioned(
@@ -81,43 +80,33 @@ class RecommendationItem extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  maxLines: 1,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+          // Content section (wrapped in SingleChildScrollView for scrolling)
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    maxLines: 1, // Ensure it doesn't overflow
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 4,
-                ),
-                // Text(
-                //   details,
-                //   maxLines: 1,
-                //   style: const TextStyle(
-                //     color: Colors.grey,
-                //     fontSize: 12,
-                //     overflow: TextOverflow.clip,
-                //   ),
-                // ),
-                // const SizedBox(
-                //   height: 4,
-                // ),
-                Text(
-                  formatPrice(price),
-                  style: const TextStyle(
-                    color: mainColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
+                  // const SizedBox(height: 4),
+                  Text(
+                    formatPrice(price),
+                    style: const TextStyle(
+                      color: mainColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
